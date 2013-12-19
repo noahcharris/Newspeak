@@ -20,6 +20,5 @@ module.exports = function (request, response) {
   // if (err) throw err;
 
   // response.end('The solution is: ' + rows[0].solution);
-  response.end("hhihihihi");
-});
+  response.end('hhihihihi');
 }
