@@ -1,16 +1,9 @@
 var http = require("http");
 
 
-var data = '';
 var webAddress = [];
-var speechText = [];
+var stateOfUnionSpeeches = [];
 var counter = 0;
-
-var stateThatUnion = function (websites) {
-	for (var i = 0; i < websites.length; i++) {
-		runHTTP(websites[i], parseSpeech)
-	}
-};
 
 var getIndicesOf = function (searchStr, str, caseSensitive) {
     var startIndex = 0, searchStrLen = searchStr.length;
@@ -25,13 +18,41 @@ var getIndicesOf = function (searchStr, str, caseSensitive) {
     }
     return indices;
 };
+var getSpeechDate = function(title) {
+	var startOfDate = getIndicesOf(' - ', title, false)[0] + 3;
+	console.log('the index start Date is ' + startOfDate);
+	stateOfUnionSpeeches[counter].date = title.slice(startOfDate);
+
+	counter++;
+	if (counter < webAddress.length) {
+		runHTTP(webAddress[counter], parseSpeech);
+	}
+};
+
+var getPresidentName = function(title) {
+	var endOfPresident = getIndicesOf(':', title, false);
+	stateOfUnionSpeeches[counter].president = title.slice(0, endOfPresident[0]);
+	getSpeechDate(title);
+};
+
+
+var getSOTUmetaData = function(speechData) {
+	var startOfTitle = getIndicesOf('<meta name="title" content="', speechData, false);
+	var endOfTitle = getIndicesOf('" /><link rel="image_src" href=', speechData, false);
+	var title = speechData.slice(startOfTitle[0] + 28, endOfTitle[0]);
+
+	getPresidentName(title);
+	
+};
+
 
 var parseSpeech = function (speechData) {
 	var startOfSpeech = getIndicesOf('span class="displaytext">', speechData, false);
 	var endOfSpeech = getIndicesOf('</span><hr noshade="noshade" size="1"><span', speechData, false);
-	speechText[counter] = speechData.slice( startOfSpeech[0] + 25 , endOfSpeech[0]).replace(/<p>/g, '  ');
-	counter++;
-	console.log(counter);
+	stateOfUnionSpeeches[counter] = {};
+	stateOfUnionSpeeches[counter].speech = speechData.slice( startOfSpeech[0] + 25 , endOfSpeech[0]).replace(/<p>/g, '  ');
+	
+	getSOTUmetaData(speechData);
 };
 
 
@@ -48,11 +69,12 @@ var potusLinks = function(data) {
 				webAddress[i] = data.slice(temp, temp + 52);
 			}
 		}
-		stateThatUnion(webAddress);
+		runHTTP(webAddress[counter], parseSpeech);
 };
 
 var runHTTP = function(path, cb) {
 	http.get(path, function(result) {
+			var data = '';
 			result.on("data", function(chunk) {
 				data += chunk;
 			});
