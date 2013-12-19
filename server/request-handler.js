@@ -8,13 +8,17 @@ var connection = mysql.createConnection({
   port: process.env.RDS_PORT
 });
 
-
+connection.connect();
 
 
 
 module.exports = function (request, response) {
   console.log('serving ' + request.method + ' request at ' + request.url);
   response.writeHead(200, {'Content-type':'text/plain'});
-  console.log('hi');
-  response.end('Hello world!');
+
+  connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+  if (err) throw err;
+
+  response.end('The solution is: ' + rows[0].solution);
+});
 }
