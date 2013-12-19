@@ -1,7 +1,9 @@
-angular.module('new')
+angular.module('newSpeakApp')
 .controller('MainController', function AppCtrl ($scope, grabSOTUinfo) {
+	$scope.test = "yoyo";
 	$scope.sotu = null;
-	$scope.getData = function() {
+	$scope.data = [1,2,3,4];
+	$scope.getSotus = function() {
 		grabSOTUinfo.grabInfo()
   	.then(function(data) {
   		// parses the data from string to JSON

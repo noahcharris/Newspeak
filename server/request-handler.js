@@ -1,3 +1,6 @@
+var
+  url     = require('url'),
+  router  = require('./router').router;
 
 //var mysql = require('mysql');
 
@@ -14,12 +17,13 @@
 
 module.exports = function (request, response) {
   console.log('serving ' + request.method + ' request at ' + request.url);
-  response.writeHead(200, {'Content-type':'text/plain'});
+  
+  var pathname = url.parse(request.url).pathname;
 
-  // connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  // if (err) throw err;
-
-  // response.end('The solution is: ' + rows[0].solution);
-  response.end("hhihihihi");
-});
-}
+  if(router[pathname]){
+    var handler = router[pathname];
+    handler(request, response, pathname);
+  } else {
+    // 404
+  }
+};

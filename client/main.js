@@ -5,7 +5,7 @@ angular.module('newSpeakApp', [
   $routeProvider
     .when('/', {
       controller: 'MainController',
-      templateUrl: 'templates/main.html'
+      templateUrl: 'client/templates/main.html'
     })
     .otherwise({
       redirectTo: '/'
