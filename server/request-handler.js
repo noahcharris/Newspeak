@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   port: process.env.RDS_PORT
 });
 
-connection.connect();
+//connection.connect();
 
 
 
