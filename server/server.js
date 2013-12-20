@@ -1,17 +1,14 @@
-var http = require('http');
-// var handlers
 
-var port = process.env.PORT || 8888;
+var express = require('express');
+var handler = require('./request-handler.js');
 
-var ip = '127.0.0.1';
 
-var server = http.createServer(require('./request-handler.js'));
-	console.log('Server running on ' + ip + ':' + port);
-	server.listen(port);
-// var http = require("http");
+app = express.createServer();
 
-// http.createServer(function(request, response) {
-//   response.writeHead(200, {"Content-Type": "text/plain"});
-//   response.end('Hello world');
+app.get('/', function(request, response) {
+  response.send('Hello world!');
+});
 
-// }).listen(process.env.PORT || 8888);    
+//binds to 3000 by default
+app.listen(8080);
+console.log('express server started listening...');
