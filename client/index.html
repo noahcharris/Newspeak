@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-  <title>Newspeak Political Analytics</title>
- </head>
+	<head>
+		<link rel="stylesheet" type="text/css" href="client/style.css">
+	  <title>Newspeak Political Analytics</title>
+	</head>
 
-<body>
-	<div ng-app='newSpeakApp'>
-			<div ng-view>
-			</div>
-	</div>
+	<body>
+		<h1>Newspeak Fo Sho</h1>
+		<span>INSERT NAV BAR HERE</span>
+		<a href="#/collocation"/>Collocation</a>
+		<a href="#/frequency"/>Frequency</a>
+		<div ng-app='newSpeakApp'>
+				<div ng-view>
+				</div>
+		</div>
 
-YOYOYOYOYO
-	<script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
- 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.js"></script>
- 	<script src="http://code.angularjs.org/1.2.5/angular-route.js"></script>
-	<script src="client/main.js"></script>
-	<script src="client/controller.js"></script>
-	<script src="client/directive.js"></script>
-	<script src="client/charts/practiceChart.js"></script>
-	<script src="client/grabSOTUinfo.js"></script>
+		<script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+	 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.js"></script>
+	 	<script src="http://code.angularjs.org/1.2.5/angular-route.js"></script>
+		<script src="client/main.js"></script>
+		<script src="client/controllers.js"></script>
+		<script src="client/directive.js"></script>
+		<script src="client/charts/practiceChart.js"></script>
+		<script src="client/charts/collocationChart.js"></script>
+		<script src="client/charts/frequencyChart.js"></script>
+		<script src="client/grabSOTUinfo.js"></script>
 
-
-</body>
+	</body>
 </html>

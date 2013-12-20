@@ -25,6 +25,11 @@ var jsFiles = function(request, response, pathname) {
   readFile(response, pathname);
 };
 
+var css = function(request, response, pathname) {
+  headers['Content-Type'] = "text/css";
+  readFile(response, pathname);
+};
+
 var testOne = function(request, response, pathname) {
 
   console.log(request.url);
@@ -33,13 +38,18 @@ var testOne = function(request, response, pathname) {
 var router = {
   '/': htmlFiles,
   '/client/templates/main.html': htmlFiles,
+  '/client/templates/collocation.html': htmlFiles,
+  '/client/templates/frequency.html': htmlFiles,
   '/client/main.js': jsFiles,
-  '/client/controller.js': jsFiles,
+  '/client/controllers.js': jsFiles,
   '/client/directive.js': jsFiles,
-  '/client/chart.js': jsFiles,
   '/client/grabSOTUinfo.js': jsFiles,
   '/client/charts/practiceChart.js': jsFiles,
-  '/collocation': testOne
+  '/client/charts/collocationChart.js': jsFiles,
+  '/client/charts/frequencyChart.js': jsFiles,
+  '/client/style.css': css,
+  '/collocation': testOne,
+  '/frequency': testOne
 };
 
 

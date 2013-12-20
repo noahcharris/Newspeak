@@ -14,6 +14,20 @@ angular.module('newSpeakApp')
         d.reject(reason);
       });
       return d.promise;
+    },
+
+    collocation: function(presidents) {
+      var d = $q.defer();
+      $http({
+        method: 'GET',
+        url: '/frequency',
+        params: {list: presidents, word: 'democracy'}
+      }).success(function(data) {
+        d.resolve(data);
+      }).error(function(reason) {
+        d.reject(reason);
+      });
+      return d.promise;
     }
 
   };
