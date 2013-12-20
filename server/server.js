@@ -12,6 +12,30 @@ app.get('/', function(request, response) {
 app.listen(8080);
 console.log('express server started listening...');
 
+/*  postgres stuff
+
+CREATE TABLE words (
+  id      SERIAL PRIMARY KEY,
+  word    varchar(25),
+  collo1  integer,
+  collo2  integer,
+  collo3  integer,
+  collo4  integer,
+  collo5  integer,
+  year1   integer,
+  year2   integer,
+  year3   integer,
+  year4   integer,
+  year5   integer,
+  year6   integer,
+  year7   integer,
+  year8   integer
+);
+
+INSERT INTO words (word, collo1, collo2, collo3, collo4, collo5, year1, year2, year3, year4, year5, year6) VALUES ('freedom',3,666,7,82,853,32,21,8473,32,1,2);
+
+*/
+
 
 
 var pg = require('pg');
