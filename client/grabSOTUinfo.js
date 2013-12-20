@@ -2,11 +2,12 @@ angular.module('newSpeakApp')
 .factory('grabSOTUinfo', function($q, $http) {
 
   var service = {
-    grabInfo: function() {
+    collocation: function(presidents) {
       var d = $q.defer();
       $http({
         method: 'GET',
-        url: '/sotuInfo',
+        url: '/collocation',
+        params: {list: presidents, word: 'democracy'}
       }).success(function(data) {
         d.resolve(data);
       }).error(function(reason) {

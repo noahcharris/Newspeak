@@ -1,6 +1,7 @@
 angular.module('newSpeakApp')
 .controller('MainController', function ($scope, grabSOTUinfo) {
 	$scope.sotu = null;
+  $scope.presidents = ['Obama', 'Bush'];
 	$scope.greeting = "Resize the page to see the re-rendering";
   $scope.data = [
     {name: "Greg", score: 98},
@@ -9,7 +10,7 @@ angular.module('newSpeakApp')
     {name: "Loser", score: 48}
   ];
 	$scope.getSotus = function() {
-		grabSOTUinfo.grabInfo()
+		grabSOTUinfo.collocation($scope.presidents)
   	.then(function(data) {
   		// parses the data from string to JSON
   		return JSON.parse(data);
