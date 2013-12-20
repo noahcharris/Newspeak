@@ -2,19 +2,17 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var handler = require('./dbtest.js');
-//var routes = require('./routes');
+var routes = require('./routes.js');
 
 
-app = express.createServer();
+app = express();
 
 app.get('/', function(request, response) {
   response.send('Hello world!');
 });
 
-app.get('/collocation', function(request, response) {
-  response.send('COLLOCATIONS!');
-});
+app.get('/collocation', routes.collocation);
+app.get('/frequency', routes.frequency);
 
 app.listen(8080);
 console.log('express server listening on port %s', app.get('port'));
