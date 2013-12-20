@@ -3,7 +3,6 @@ var pg = require('pg');
 var url = require('url');
 
 var conString = 'postgres://noahharris@localhost:5432/noahharris';
-
 var client = new pg.Client(conString);
 
 
@@ -21,10 +20,9 @@ client.connect(function(err) {
   });
 });
 
-
 module.exports.collocation = function(request, response) {
   var query = url.parse(request.url, true).query;      //include true as second argument to parse query string
-  
+
   response.send('hey');
 };
 
@@ -32,6 +30,10 @@ module.exports.frequency = function(request, response) {
   var query = url.parse(request.url, true).query;
 
   response.send('yoyoyoy');
+};
+
+module.exports.receiveData = function(request, response) {
+
 };
 
 

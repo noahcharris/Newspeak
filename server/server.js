@@ -13,6 +13,7 @@ app.get('/', function(request, response) {
 
 app.get('/collocation', routes.collocation);
 app.get('/frequency', routes.frequency);
+app.post('/data', routes.receiveData);
 
 app.listen(8080);
-console.log('express server listening on port %s', app.get('port'));
+console.log('express server listening..');
