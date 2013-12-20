@@ -38,7 +38,7 @@ var router = {
   '/client/directive.js': jsFiles,
   '/client/chart.js': jsFiles,
   '/client/grabSOTUinfo.js': jsFiles,
-  '/client/charts/d3BarChart.js': jsFiles,
+  '/client/charts/practiceChart.js': jsFiles,
   '/collocation': testOne
 };
 
