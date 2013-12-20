@@ -14,7 +14,7 @@ console.log('express server started listening...');
 
 /*  postgres stuff
 
-CREATE TABLE words (
+CREATE TABLE ObamaWords (
   id      SERIAL PRIMARY KEY,
   word    varchar(25),
   collo1  integer,
