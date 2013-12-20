@@ -1,8 +1,13 @@
 angular.module('newSpeakApp')
-.controller('MainController', function AppCtrl ($scope, grabSOTUinfo) {
-	$scope.test = "yoyo";
+.controller('MainController', function ($scope, grabSOTUinfo) {
 	$scope.sotu = null;
-	$scope.data = [1,2,3,4];
+	$scope.greeting = "Resize the page to see the re-rendering";
+  $scope.data = [
+    {name: "Greg", score: 98},
+    {name: "Ari", score: 96},
+    {name: 'Q', score: 75},
+    {name: "Loser", score: 48}
+  ];
 	$scope.getSotus = function() {
 		grabSOTUinfo.grabInfo()
   	.then(function(data) {
