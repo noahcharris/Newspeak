@@ -22,6 +22,7 @@ client.connect(function(err) {
 
 module.exports.collocation = function(request, response) {
   var query = url.parse(request.url, true).query;      //include true as second argument to parse query string
+  console.log(query);
 
   response.send('hey');
 };
