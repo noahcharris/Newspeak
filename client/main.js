@@ -5,15 +5,15 @@ angular.module('newSpeakApp', [
   $routeProvider
     .when('/', {
       controller: 'MainController',
-      templateUrl: 'client/templates/main.html'
+      templateUrl: '/client/templates/main.html'
     })
     .when('/frequency', {
     	controller: 'frequencyController',
-    	templateUrl: 'client/templates/frequency.html'
+    	templateUrl: '/client/templates/frequency.html'
     })
     .when('/collocation', {
     	controller: 'collocationController',
-    	templateUrl: 'client/templates/collocation.html'
+    	templateUrl: '/client/templates/collocation.html'
     })
     .otherwise({
       redirectTo: '/'
