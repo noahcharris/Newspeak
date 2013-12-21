@@ -2,12 +2,12 @@ angular.module('newSpeakApp')
 .factory('grabSOTUinfo', function($q, $http) {
 
   var service = {
-    collocation: function(presidents) {
+    collocation: function(president, word) {
       var d = $q.defer();
       $http({
         method: 'GET',
         url: '/collocation',
-        params: {list: presidents, word: 'democracy'}
+        params: {president: president, word: word}
       }).success(function(data) {
         d.resolve(data);
       }).error(function(reason) {
@@ -16,12 +16,12 @@ angular.module('newSpeakApp')
       return d.promise;
     },
 
-    collocation: function(presidents) {
+    frequency: function(president, word) {
       var d = $q.defer();
       $http({
         method: 'GET',
         url: '/frequency',
-        params: {list: presidents, word: 'democracy'}
+        params: {president: president, word: word}
       }).success(function(data) {
         d.resolve(data);
       }).error(function(reason) {

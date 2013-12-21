@@ -48,7 +48,7 @@ angular.module('newSpeakApp')
         return xScale(d.score);
       });
 
-     //create the text on the rects for the barc har
+     //create the text on the rects for the bar chart
     svg.selectAll('text')
      .data(data)
      .enter()

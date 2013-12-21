@@ -10,34 +10,45 @@ angular.module('newSpeakApp')
   ];
 })
 .controller('collocationController', function ($scope, grabSOTUinfo) {
-  $scope.sotu = null;
-  $scope.presidents = ['Obama', 'Bush'];
+  //temporary
+  $scope.colData = {
+     "name": "cluster",
+     "children": [
+      {"name": "AgglomerativeCluster", "size": 3938},
+      {"name": "CommunityStructure", "size": 3812},
+      {"name": "HierarchicalCluster", "size": 6714},
+      {"name": "MergeEdge", "size": 71743}
+     ]
+    }
+  $scope.president = 'Barack Obama';
+  $scope.word = 'democracy';
   
   $scope.getSotus = function() {
-    grabSOTUinfo.collocation($scope.presidents)
+    grabSOTUinfo.collocation($scope.president, $scope.word)
     .then(function(data) {
       // parses the data from string to JSON
       return JSON.parse(data);
     })
     .then(function(parsed) {
       // puts the data in the scope's sotu variable to be used for D3
-      $scope.sotu = parsed;
+      $scope.colData = parsed;
     });
   };
 })
 .controller('frequencyController', function ($scope, grabSOTUinfo) {
-  $scope.sotu = null;
-  $scope.presidents = ['Obama', 'Bush'];
+  $scope.freqData;
+  $scope.president = 'Barack Obama';
+  $scope.word = 'democracy';
   
   $scope.getSotus = function() {
-    grabSOTUinfo.frequency($scope.presidents)
+    grabSOTUinfo.frequency($scope.president, $scope.word)
     .then(function(data) {
       // parses the data from string to JSON
       return JSON.parse(data);
     })
     .then(function(parsed) {
       // puts the data in the scope's sotu variable to be used for D3
-      $scope.sotu = parsed;
+      $scope.freqData = parsed;
     });
   };
 });
