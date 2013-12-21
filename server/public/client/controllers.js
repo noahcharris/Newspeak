@@ -11,15 +11,49 @@ angular.module('newSpeakApp')
 })
 .controller('collocationController', function ($scope, grabSOTUinfo) {
   //temporary
-  $scope.colData = {
-     "name": "cluster",
-     "children": [
-      {"name": "AgglomerativeCluster", "size": 3938},
-      {"name": "CommunityStructure", "size": 3812},
-      {"name": "HierarchicalCluster", "size": 6714},
-      {"name": "MergeEdge", "size": 71743}
-     ]
-    }
+ $scope.colData = {
+        "name": "cluster",
+        "x": 480,
+        "y": 250,
+        "children": [
+          { "name": "AgglomerativeCluster",
+            "size": 3938,
+            "x": 200,
+            "y": 200,
+            "target": {
+              "x": 200,
+              "y": 200
+            }
+          },
+          { "name": "CommunityStructure",
+            "size": 3812,
+            "x": 800,
+            "y": 200,
+            "target": {
+              "x": 800,
+              "y": 200
+            }
+          },
+          { "name": "HierarchicalCluster",
+            "size": 6714,
+            "x": 800,
+            "y": 400,
+            "target": {
+              "x": 800,
+              "y": 400
+            }
+          },
+          { "name": "MergeEdge",
+            "size": 71743,
+            "x": 200,
+            "y": 400,
+            "target": {
+              "x": 200,
+              "y": 400
+            }
+          }
+        ]
+      };
   $scope.president = 'Barack Obama';
   $scope.word = 'democracy';
   
