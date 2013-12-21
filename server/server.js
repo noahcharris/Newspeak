@@ -15,5 +15,7 @@ app.get('/collocation', routes.collocation);
 app.get('/frequency', routes.frequency);
 app.post('/data', routes.receiveData);
 
+app.use(express.static(__dirname + '/public'));
+
 app.listen(8080);
 console.log('express server listening..');
