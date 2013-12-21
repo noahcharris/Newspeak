@@ -28,6 +28,7 @@ module.exports.collocation = function(request, response) {
 
 module.exports.frequency = function(request, response) {
   var query = url.parse(request.url, true).query;
+  console.log(query);
 
   response.send('yoyoyoy');
 };
