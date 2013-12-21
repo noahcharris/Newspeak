@@ -1,6 +1,6 @@
 angular.module('newSpeakApp')
 .controller('MainController', function ($scope) {
-	$scope.test = 'this worked!';
+  $scope.test = 'this worked!';
   $scope.greeting = "Resize the page to see the re-rendering";
   $scope.data = [
     {name: "Greg", score: 98},
@@ -11,49 +11,7 @@ angular.module('newSpeakApp')
 })
 .controller('collocationController', function ($scope, grabSOTUinfo) {
   //temporary
-  $scope.colData = {
-        "name": "cluster",
-        "x": 480,
-        "y": 250,
-        "children": [
-          { "name": "AgglomerativeCluster",
-            "size": 3938,
-            "x": 200,
-            "y": 200,
-            "target": {
-              "x": 200,
-              "y": 200
-            }
-          },
-          { "name": "CommunityStructure",
-            "size": 3812,
-            "x": 800,
-            "y": 200,
-            "target": {
-              "x": 800,
-              "y": 200
-            }
-          },
-          { "name": "HierarchicalCluster",
-            "size": 6714,
-            "x": 800,
-            "y": 400,
-            "target": {
-              "x": 800,
-              "y": 400
-            }
-          },
-          { "name": "MergeEdge",
-            "size": 71743,
-            "x": 200,
-            "y": 400,
-            "target": {
-              "x": 200,
-              "y": 400
-            }
-          }
-        ]
-      };
+ $scope.colData = ['democracy', 'freedom', 'health care', "my wife michelle", 'chicago', 'blue state'];
   $scope.president = 'Barack Obama';
   $scope.word = 'democracy';
   

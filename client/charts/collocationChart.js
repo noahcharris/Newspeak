@@ -4,8 +4,9 @@ angular.module('newSpeakApp')
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
 
+		//data gets changed on click events (not sure why). this guarantees data doesnt change
 		var getRoot = function() {
-			return data;
+			return JSON.parse(tempData);
 		}; //end of get root
 
 
@@ -69,14 +70,14 @@ angular.module('newSpeakApp')
       .attr("r", 30)
       .transition()
     		.duration(1500)
-		  .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; });
+		  .attr("r", function(d) { return d.radius; });
 
 
 		  nodeEnter.append("text")
 		  .attr("dy", ".35em")
 		  .attr('x', function(d) { return d.x; })
 		  .attr('y', function(d) { return d.y; })
-		  .text(function(d) { return d.name; });
+		  .text(function(d) { return d.word; });
 
 		  node.select("circle")
 		  .style("fill", color);
@@ -115,6 +116,40 @@ angular.module('newSpeakApp')
 		//some var declarations
 		var width = 960,
 		    height = 500;
+
+		//set initial properties on tree (data comes in form of an array)
+		var treeRoot = {};
+		treeRoot.word = data[0];
+		treeRoot.x = width/2;
+		treeRoot.y = height/2;
+		treeRoot.radius = 100;
+		treeRoot.children = []; //this will be an array of objects
+		childrens = data.slice(1);	
+		for (var i = 0; i < childrens.length; i++) {
+			//make object
+			treeRoot.children[i] = {};
+			//set word
+			treeRoot.children[i].word = childrens[i];
+			//set radius
+			treeRoot.children[i].radius = (childrens.length - i) * 25;
+			//set position
+			//from order in array, go clockwise starting from top left corner)
+			if (i === 0 || i === 4) {treeRoot.children[i].x = 200; }
+			if (i === 1 || i === 2) { treeRoot.children[i].x = 800; }
+			if (i === 3) { treeRoot.children[i].x = 600; }
+
+			if (i <= 1) { treeRoot.children[i].y = 200; }
+			if (i === 2 || i === 4) { treeRoot.children[i].y = 300; }
+			if (i === 3) { treeRoot.children[i].y = 400; }
+
+			//set target positions
+			treeRoot.children[i].target = {
+				x: treeRoot.children[i].x,
+				y: treeRoot.children[i].y
+			};
+		}
+
+		var tempData = JSON.stringify(treeRoot);
 
 		 
 		var force = d3.layout.force()
