@@ -4,31 +4,11 @@ angular.module('newSpeakApp')
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
 
-		var
-			width = 960,
-			height = 500,
-			root = data;
+		//data gets changed on click events (not sure why). this guarantees data doesnt change
+		var getRoot = function() {
+			return JSON.parse(tempData);
+		}; //end of get root
 
-		var force = d3.layout.force()
-			.linkDistance(80)
-    	.charge(-120)
-    	.gravity(.05)
-			.size([width, height])
-			.on("tick", tick);
-
-		// var svg = d3.select("body").append("svg")
-		// 	.attr("width", width)
-		// 	.attr("height", height);
-
-		var
-			link = svg.selectAll(".link"),
-			node = svg.selectAll(".node");
-
-
-		// d3.json("readme.json", function(json) {
-		// 	root = json;
-		// 	update();
-		// });
 
 		// Returns a list of all nodes under the root.
 		var flatten = function (root) {
@@ -48,7 +28,7 @@ angular.module('newSpeakApp')
 
 
 
-		var update = function () {
+		var update = function (root) {
 			
 			var nodes = flatten(root),
 			links = d3.layout.tree().links(nodes);
@@ -66,8 +46,11 @@ angular.module('newSpeakApp')
 
 		  link.enter().insert("line", ".node")
 		  .attr("class", "link")
-		  .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
+		  .attr("x1", 480)
+      .attr("y1", 250)
+      .attr("x2", 480)
+      .attr("y2", 250)
+      .transition().duration(1500)
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
 
@@ -82,29 +65,34 @@ angular.module('newSpeakApp')
 		  .call(force.drag);
 
 		  nodeEnter.append("circle")
-		  .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
 		  .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+      .attr("cy", function(d) { return d.y; })
+      .attr("r", 30)
+      .transition()
+    		.duration(1500)
+		  .attr("r", function(d) { return d.radius; });
+
 
 		  nodeEnter.append("text")
 		  .attr("dy", ".35em")
 		  .attr('x', function(d) { return d.x; })
 		  .attr('y', function(d) { return d.y; })
-		  .text(function(d) { return d.name; });
+		  .text(function(d) { return d.word; });
 
 		  node.select("circle")
 		  .style("fill", color);
 
-		};
+		}; // end of update function
 
-		var tick = function () {
-			link.attr("x1", function(d) { return d.source.x; })
-					.attr("y1", function(d) { return d.source.y; })
-					.attr("x2", function(d) { return d.target.x; })
-					.attr("y2", function(d) { return d.target.y; });
+		//not doing tick event
+		// var tick = function () {
+		// 	link.attr("x1", 480)
+		// 			.attr("y1", 250)
+		// 			.attr("x2", function(d, i) {d = getRoot(); return d.children[i].target.x; })
+		// 			.attr("y2", function(d, i) {d = getRoot(); return d.children[i].target.y; });
 
-			node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-		};
+		// 	node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; });
+		// };
 
 		// Color leaf nodes orange, and packages white or blue.
 		var color = function (d) {
@@ -117,18 +105,69 @@ angular.module('newSpeakApp')
 		var click = function (d) {
 			if (!d3.event.defaultPrevented) {
 				if (d.children) {
-					d._children = d.children;
 					d.children = null;
 				} else {
-					d.children = d._children;
-					d._children = null;
+					d = getRoot();
 				}
-				update();
+				update(d);
 			}
 		};
 
+		//some var declarations
+		var width = 960,
+		    height = 500;
+
+		//set initial properties on tree (data comes in form of an array)
+		var treeRoot = {};
+		treeRoot.word = data[0];
+		treeRoot.x = width/2;
+		treeRoot.y = height/2;
+		treeRoot.radius = 100;
+		treeRoot.children = []; //this will be an array of objects
+		childrens = data.slice(1);	
+		for (var i = 0; i < childrens.length; i++) {
+			//make object
+			treeRoot.children[i] = {};
+			//set word
+			treeRoot.children[i].word = childrens[i];
+			//set radius
+			treeRoot.children[i].radius = (childrens.length - i) * 25;
+			//set position
+			//from order in array, go clockwise starting from top left corner)
+			if (i === 0 || i === 4) {treeRoot.children[i].x = 200; }
+			if (i === 1 || i === 2) { treeRoot.children[i].x = 800; }
+			if (i === 3) { treeRoot.children[i].x = 600; }
+
+			if (i <= 1) { treeRoot.children[i].y = 200; }
+			if (i === 2 || i === 4) { treeRoot.children[i].y = 300; }
+			if (i === 3) { treeRoot.children[i].y = 400; }
+
+			//set target positions
+			treeRoot.children[i].target = {
+				x: treeRoot.children[i].x,
+				y: treeRoot.children[i].y
+			};
+		}
+
+		var tempData = JSON.stringify(treeRoot);
+
+		 
+		var force = d3.layout.force()
+			.linkDistance(80)
+    	.charge(-120)
+    	.gravity(.05)
+			.size([width, height]);
+			//not doing tick event
+			//.on("tick", tick);
+
+
+		var
+			link = svg.selectAll(".link"),
+			node = svg.selectAll(".node");
+
 		//start the process
-		update();
+		root = getRoot();
+		update(root);
 
   };//end of .render
 
