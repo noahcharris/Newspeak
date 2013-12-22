@@ -1,5 +1,8 @@
 <h3>Collocation</h3>
 
-<button ng-click="getSotus()" class="button">Get Me Some State of the Union Stuff</button>
+<input ng-model="word" placeholder="enter term"></input>
 
-<coldir on-click="moreWords(item)" data="colData"></coldir>
+<button ng-click="getSotus($scope.word)" class="button">Get Me Some State of the Union Stuff</button>
+
+
+<coldir on-click="checkWord(item)" data="colData"></coldir>

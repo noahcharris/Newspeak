@@ -109,7 +109,9 @@ angular.module('newSpeakApp')
 			if (!d3.event.defaultPrevented) {
 				if (d.children) {
 					//not correct placing but flow through for click event
-					scope.onClick({item: d});
+					// scope.onClick({item: d});
+
+					//because the placement of x and change, save the id and get correct placement
 					var IDholder = d.id;
 					d = getRoot();
 					d.id = IDholder;

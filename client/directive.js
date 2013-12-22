@@ -66,7 +66,7 @@ angular.module('newSpeakApp')
 
           // watch for data changes and re-render
 					scope.$watch('data', function(newVals, oldVals) {
-					  return scope.render(newVals, scope, element, attrs, svg);
+					  scope.render(newVals, scope, element, attrs, svg);
 					}, true);
 
           scope.render = function(data, scope, element, attrs, svg) {
