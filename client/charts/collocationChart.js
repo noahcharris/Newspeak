@@ -31,9 +31,10 @@ angular.module('newSpeakApp')
 
 		var update = function (root) {
 			
-			var nodes = flatten(root),
-			links = d3.layout.tree().links(nodes);
-
+			var
+				nodes = flatten(root),
+				links = d3.layout.tree().links(nodes);
+				
 		  // Restart the force layout.
 		  force
 		  .nodes(nodes)
@@ -107,6 +108,11 @@ angular.module('newSpeakApp')
 		var click = function (d) {
 			if (!d3.event.defaultPrevented) {
 				if (d.children) {
+					//not correct placing but flow through for click event
+					scope.onClick({item: d});
+					var IDholder = d.id;
+					d = getRoot();
+					d.id = IDholder;
 					d.children = null;
 				} else {
 					d = getRoot();
@@ -119,7 +125,7 @@ angular.module('newSpeakApp')
 		var width = d3.select(element[0]).node().offsetWidth;
 		if (width > 960) { width = 960; }
 		var height = 600;
-		
+
 		//set initial properties on tree (data comes in form of an array)
 		var treeRoot = {};
 		treeRoot.word = data[0];
@@ -137,13 +143,13 @@ angular.module('newSpeakApp')
 			treeRoot.children[i].radius = (childrens.length - i) * 25 * (width / 960);
 			//set position
 			//from order in array, go clockwise starting from top left corner)
-			if (i === 0 || i === 4) { treeRoot.children[i].x = 200 * (width / 960); }
-			if (i === 1 || i === 2) { treeRoot.children[i].x = 800 * (width / 960); }
-			if (i === 3) { treeRoot.children[i].x = 450 * (width / 960); }
+			if (i === 0 || i === 4) { treeRoot.children[i].x = treeRoot.x - 280 * (treeRoot.x / 480); }
+			if (i === 1 || i === 2) { treeRoot.children[i].x = treeRoot.x + 320 * (treeRoot.x / 480); }
+			if (i === 3) { treeRoot.children[i].x = treeRoot.x - 30 * (treeRoot.x / 480); }
 
-			if (i <= 1) { treeRoot.children[i].y = 150 * (height / 600); }
-			if (i === 2 || i === 4) { treeRoot.children[i].y = 350 * (height / 600); }
-			if (i === 3) { treeRoot.children[i].y = 425 * (height / 600); }
+			if (i <= 1) { treeRoot.children[i].y = treeRoot.y - 50 * (treeRoot.y / 200); }
+			if (i === 2 || i === 4) { treeRoot.children[i].y = treeRoot.y + 150 * (treeRoot.y / 200); }
+			if (i === 3) { treeRoot.children[i].y = treeRoot.y + 225 * (treeRoot.y / 200); }
 
 			//set target positions
 			treeRoot.children[i].target = {

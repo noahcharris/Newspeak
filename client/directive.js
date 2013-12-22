@@ -42,13 +42,15 @@ angular.module('newSpeakApp')
 		restrict: 'EA',
      // directive code
      scope: {
-     	data: '='
+     	data: '=',
+      onClick: '&' //parent execution binding
      },
      link: function(scope, element, attrs) {
         // our d3 code will go here
         
         var svg = d3.select(element[0])
-        	.append('svg');
+        	.append('svg')
+    			.attr("height", 600);
 
         	 // Browser onresize event
           window.onresize = function() {

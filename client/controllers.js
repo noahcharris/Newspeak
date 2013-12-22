@@ -11,9 +11,12 @@ angular.module('newSpeakApp')
 })
 .controller('collocationController', function ($scope, grabSOTUinfo) {
   //temporary
- $scope.colData = ['democracy', 'freedom', 'health care', "my wife michelle", 'chicago', 'blue state'];
+  $scope.colData = ['democracy', 'freedom', 'health care', "my wife michelle", 'chicago', 'blue state'];
   $scope.president = 'Barack Obama';
   $scope.word = 'democracy';
+  $scope.moreWords = function(item) {
+    alert(item.word);
+  };
   
   $scope.getSotus = function() {
     grabSOTUinfo.collocation($scope.president, $scope.word)
