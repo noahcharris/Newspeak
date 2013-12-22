@@ -48,9 +48,7 @@ angular.module('newSpeakApp')
         // our d3 code will go here
         
         var svg = d3.select(element[0])
-        	.append('svg')
-        	.attr("width", 960)
-    			.attr("height", 500);
+        	.append('svg');
 
         	 // Browser onresize event
           window.onresize = function() {
@@ -58,11 +56,11 @@ angular.module('newSpeakApp')
           };
 
         	// Watch for resize event
-          // scope.$watch(function() {
-          //   return angular.element(window)[0].innerWidth;
-          // }, function() {
-          //   scope.render(scope.data, scope, element, attrs, svg);
-          // });
+          scope.$watch(function() {
+            return angular.element(window)[0].innerWidth;
+          }, function() {
+            scope.render(scope.data, scope, element, attrs, svg);
+          });
 
           // watch for data changes and re-render
 					scope.$watch('data', function(newVals, oldVals) {

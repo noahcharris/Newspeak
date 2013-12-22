@@ -2,11 +2,8 @@
 var pg = require('pg');
 var url = require('url');
 
-<<<<<<< HEAD
-var conString = 'postgres://brandoncooper@localhost:5432/brandoncooper'; //database connection info
-=======
-var conString = 'postgres://noahharris@localhost:5432/noahharris';
->>>>>>> 5e29b89d9ce763a9005bad42a9ce318f2505b9c0
+var conString = 'postgres://brandoncooper@localhost:5432/brandoncooper';
+
 var client = new pg.Client(conString);
 
 

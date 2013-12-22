@@ -3,6 +3,7 @@ angular.module('newSpeakApp')
 
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
+		svg.selectAll('*').remove();
 
 		//data gets changed on click events (not sure why). this guarantees data doesnt change
 		var getRoot = function() {
@@ -44,12 +45,13 @@ angular.module('newSpeakApp')
 
 		  link.exit().remove();
 
+
 		  link.enter().insert("line", ".node")
 		  .attr("class", "link")
-		  .attr("x1", 480)
-      .attr("y1", 250)
-      .attr("x2", 480)
-      .attr("y2", 250)
+		  .attr("x1", width/2)
+      .attr("y1", height/2 - 100)
+      .attr("x2", width/2)
+      .attr("y2", height/2 - 100)
       .transition().duration(1500)
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
@@ -114,15 +116,16 @@ angular.module('newSpeakApp')
 		};
 
 		//some var declarations
-		var width = 960,
-		    height = 500;
-
+		var width = d3.select(element[0]).node().offsetWidth;
+		if (width > 960) { width = 960; }
+		var height = 600;
+		
 		//set initial properties on tree (data comes in form of an array)
 		var treeRoot = {};
 		treeRoot.word = data[0];
 		treeRoot.x = width/2;
-		treeRoot.y = height/2;
-		treeRoot.radius = 100;
+		treeRoot.y = height/2 - 100;
+		treeRoot.radius = 100 * (width / 960) * (height / 600);
 		treeRoot.children = []; //this will be an array of objects
 		childrens = data.slice(1);	
 		for (var i = 0; i < childrens.length; i++) {
@@ -131,16 +134,16 @@ angular.module('newSpeakApp')
 			//set word
 			treeRoot.children[i].word = childrens[i];
 			//set radius
-			treeRoot.children[i].radius = (childrens.length - i) * 25;
+			treeRoot.children[i].radius = (childrens.length - i) * 25 * (width / 960);
 			//set position
 			//from order in array, go clockwise starting from top left corner)
-			if (i === 0 || i === 4) {treeRoot.children[i].x = 200; }
-			if (i === 1 || i === 2) { treeRoot.children[i].x = 800; }
-			if (i === 3) { treeRoot.children[i].x = 600; }
+			if (i === 0 || i === 4) { treeRoot.children[i].x = 200 * (width / 960); }
+			if (i === 1 || i === 2) { treeRoot.children[i].x = 800 * (width / 960); }
+			if (i === 3) { treeRoot.children[i].x = 450 * (width / 960); }
 
-			if (i <= 1) { treeRoot.children[i].y = 200; }
-			if (i === 2 || i === 4) { treeRoot.children[i].y = 300; }
-			if (i === 3) { treeRoot.children[i].y = 400; }
+			if (i <= 1) { treeRoot.children[i].y = 150 * (height / 600); }
+			if (i === 2 || i === 4) { treeRoot.children[i].y = 350 * (height / 600); }
+			if (i === 3) { treeRoot.children[i].y = 425 * (height / 600); }
 
 			//set target positions
 			treeRoot.children[i].target = {
