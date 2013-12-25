@@ -46,22 +46,13 @@ angular.module('newSpeakApp')
       onClick: '&' //parent execution binding
      },
      link: function(scope, element, attrs) {
-        // our d3 code will go here
         
-        var svg = d3.select(element[0])
-        	.append('svg');
-
+          var svg = d3.select("body").append("svg");
+            
         	 // Browser onresize event
           window.onresize = function() {
             scope.$apply();
           };
-
-        	// Watch for resize event
-          scope.$watch(function() {
-            return angular.element(window)[0].innerWidth;
-          }, function() {
-            scope.render(scope.data, scope, element, attrs, svg);
-          });
 
           // watch for data changes and re-render
 					scope.$watch('data', function(newVals, oldVals) {
