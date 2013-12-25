@@ -47,24 +47,24 @@ angular.module('newSpeakApp')
      },
      link: function(scope, element, attrs) {
         
-          var svg = d3.select("body").append("svg");
-            
-        	 // Browser onresize event
-          window.onresize = function() {
-            scope.$apply();
-          };
+        var svg = d3.select("body").append("svg");
+          
+      	 // Browser onresize event
+        window.onresize = function() {
+          scope.$apply();
+        };
 
-          // watch for data changes and re-render
-					scope.$watch('data', function(newVals, oldVals) {
-					  scope.render(newVals, scope, element, attrs, svg);
-					}, true);
+        // watch for data changes and re-render
+  			scope.$watch('data', function(newVals, oldVals) {
+  			  scope.render(newVals, scope, element, attrs, svg);
+  			}, true);
 
-          scope.render = function(data, scope, element, attrs, svg) {
-          	collocationChart.render(data, scope, element, attrs, svg);
-          };//end of scope.render
+        scope.render = function(data, scope, element, attrs, svg) {
+        	collocationChart.render(data, scope, element, attrs, svg);
+        };//end of scope.render
 
-      	}//end of link
-    	};//end of return
+    	}//end of link
+    };//end of return
 }])
 .directive('freqDir',['frequencyChart', function(frequencyChart) {
 	return {

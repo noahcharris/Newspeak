@@ -33,7 +33,7 @@ angular.module('newSpeakApp')
 		  .call(force.drag);
 		  
 		  nodeEnter.append("circle")
-		  .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; });
+		  .attr("r", function(d) { return d.size * 2 + 5; });
 		  
 		  nodeEnter.append("text")
 		  .attr("dy", ".35em")
@@ -65,8 +65,12 @@ angular.module('newSpeakApp')
 		  	d._children = d.children;
 		  	d.children = null;
 		  } else {
-		  	d.children = d._children;
-		  	d._children = null;
+		  	if (d._children) {
+			  	d.children = d._children;
+			  	d._children = null;
+		  	} else {
+		  		scope.onClick({word: d.word});
+		  	}
 		  }
 		  update();
 		};

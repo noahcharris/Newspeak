@@ -4,15 +4,18 @@ angular.module('newSpeakApp')
   var service = {
     collocation: function(president, word) {
       var d = $q.defer();
-      $http({
-        method: 'GET',
-        url: '/collocation',
-        params: {president: president, word: word}
-      }).success(function(data) {
-        d.resolve(data);
-      }).error(function(reason) {
-        d.reject(reason);
-      });
+      // WHEN SERVER WORKS UNCOMMENT BELOW
+      // $http({
+      //   method: 'GET',
+      //   url: '/collocation',
+      //   params: {president: president, word: word}
+      // }).success(function(data) {
+      //   d.resolve(data);
+      // }).error(function(reason) {
+      //   d.reject(reason);
+      // });
+      // WHEN SERVER WORKS DELETE BELOW
+      d.resolve("['republican', elephant','chris christie', 'bush', 'conservative', 'small government']");
       return d.promise;
     },
 
