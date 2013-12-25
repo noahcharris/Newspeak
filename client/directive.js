@@ -49,8 +49,7 @@ angular.module('newSpeakApp')
         // our d3 code will go here
         
         var svg = d3.select(element[0])
-        	.append('svg')
-    			.attr("height", 600);
+        	.append('svg');
 
         	 // Browser onresize event
           window.onresize = function() {

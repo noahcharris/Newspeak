@@ -3,13 +3,7 @@ angular.module('newSpeakApp')
 
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
-		svg.selectAll('*').remove();
-
-		//data gets changed on click events (not sure why). this guarantees data doesnt change
-		var getRoot = function() {
-			return JSON.parse(tempData);
-		}; //end of get root
-
+		
 
 		// Returns a list of all nodes under the root.
 		var flatten = function (root) {
@@ -49,10 +43,10 @@ angular.module('newSpeakApp')
 
 		  link.enter().insert("line", ".node")
 		  .attr("class", "link")
-		  .attr("x1", width/2)
-      .attr("y1", height/2 - 100)
-      .attr("x2", width/2)
-      .attr("y2", height/2 - 100)
+		  .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.source.x; })
+      .attr("y2", function(d) { return d.source.y; })
       .transition().duration(1500)
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
@@ -111,7 +105,7 @@ angular.module('newSpeakApp')
 					//not correct placing but flow through for click event
 					// scope.onClick({item: d});
 
-					//because the placement of x and change, save the id and get correct placement
+					//because the placement of x coordinate changes, save the id and get correct placement
 					var IDholder = d.id;
 					d = getRoot();
 					d.id = IDholder;
@@ -123,46 +117,118 @@ angular.module('newSpeakApp')
 			}
 		};
 
-		//some var declarations
-		var width = d3.select(element[0]).node().offsetWidth;
-		if (width > 960) { width = 960; }
-		var height = 600;
+		var nodeMapping = function(data) {
+			//set initial properties on tree (data comes in form of an array - need to manipulate for d3)
+			var treeRoot = {};
+			treeRoot.word = data[0]; // data[0] is the word that was sent for the get request
+			//check for how many of it's branches also have branches. This will affect the size of each circle
+			var	branched 			= 1, 
+					branchedNodes = [];
+			for (var i = 1; i < data.length; i++) {
+				if (typeof data[i] === 'object') {
+					branched++;
+					branchedNodes.push(i);
+				}
+			}
 
-		//set initial properties on tree (data comes in form of an array)
-		var treeRoot = {};
-		treeRoot.word = data[0];
-		treeRoot.x = width/2;
-		treeRoot.y = height/2 - 100;
-		treeRoot.radius = 100 * (width / 960) * (height / 600);
-		treeRoot.children = []; //this will be an array of objects
-		childrens = data.slice(1);	
-		for (var i = 0; i < childrens.length; i++) {
-			//make object
-			treeRoot.children[i] = {};
-			//set word
-			treeRoot.children[i].word = childrens[i];
-			//set radius
-			treeRoot.children[i].radius = (childrens.length - i) * 25 * (width / 960);
-			//set position
-			//from order in array, go clockwise starting from top left corner)
-			if (i === 0 || i === 4) { treeRoot.children[i].x = treeRoot.x - 280 * (treeRoot.x / 480); }
-			if (i === 1 || i === 2) { treeRoot.children[i].x = treeRoot.x + 320 * (treeRoot.x / 480); }
-			if (i === 3) { treeRoot.children[i].x = treeRoot.x - 30 * (treeRoot.x / 480); }
+			//set placement of root of tree; placement based off number of branches its children have
+			treeRoot = placeRoot(treeRoot, branchedNodes);
 
-			if (i <= 1) { treeRoot.children[i].y = treeRoot.y - 50 * (treeRoot.y / 200); }
-			if (i === 2 || i === 4) { treeRoot.children[i].y = treeRoot.y + 150 * (treeRoot.y / 200); }
-			if (i === 3) { treeRoot.children[i].y = treeRoot.y + 225 * (treeRoot.y / 200); }
+			//set radius of root based off the window size (width and height)...
+			//as well as based off the # of branches it's children have
+			treeRoot.radius = 100 * (width / originalWidth) * (height / 600) * (1 / branched);
+			
+			treeRoot.children = []; //this will be an array of objects
+			childrens = data.slice(1);	
+			//set properties on each child
+			for (var i = 0; i < childrens.length; i++) {
+				debugger;
+				//recurse if this branch has branches (i.e. is an array); else just make new object
+				if (typeof childrens[i] === 'object') {
+					treeRoot.children[i] = nodeMapping(childrens[i], branched);
+				} else {
+					//make object
+					treeRoot.children[i] = {};
+					//set word
+					treeRoot.children[i].word = childrens[i];
+				}
+				//set radius - based off position in array...
+				//(scales for width of window and number of other branches)
+				treeRoot.children[i].radius = (childrens.length - i) * 18 * (width / originalWidth) * (1 / branched) + 10;
+				//set position
+				placement(i, treeRoot, branched);
+			}
+			return treeRoot;
+		};
+
+		var placeRoot = function (treeRoot, branchedNodes) {
+			//original placement
+			treeRoot.x = width/2 ;
+			treeRoot.y = (height/2 - 100);
+
+			var directionLeft, directionRight, directionUp, directionDown;
+			for (var i = 0; i < branchedNodes.length; i++) {
+				//only move in a particular direction once
+				if (!directionLeft && placeRootMap[branchedNodes[i]].x === 'left') {
+					directionLeft = true;
+					treeRoot.x = treeRoot.x - width/4;
+				} else if (!directionRight && placeRootMap[branchedNodes[i]].x === 'right') {
+					directionRight = true;
+					treeRoot.x = treeRoot.x + width/4;
+				} else if (!directionUp && placeRootMap[branchedNodes[i]].y === 'up') {
+					directionUp = true;
+					treeRoot.y = treeRoot.y - height/4;
+				} else if (!directionDown && placeRootMap[branchedNodes[i]].x === 'down') {
+					directionDown = true;
+					treeRoot.y = treeRoot.y + height/4;
+				}
+			}
+			return treeRoot;
+		};
+
+		var placeRootMap = {
+			1: {x: 'right', y: 'down'},
+			2: {x: 'left', y: 'down'},
+			3: {x: 'left', y: 'up'},
+			4: {x: null, y: 'up'},
+			5: {x: 'right', y: 'up'}
+		}
+		
+
+		var placement = function (i, treeRoot, branched) {
+			//from order in array, go clockwise starting from top left corner
+			//scales for window size and number of other branches
+			if (i === 0 || i === 4) { treeRoot.children[i].x = treeRoot.x - 280 * (treeRoot.x / (originalWidth * 0.5)) * (1 / branched); }
+			if (i === 1 || i === 2) { treeRoot.children[i].x = treeRoot.x + 320 * (treeRoot.x / (originalWidth * 0.5)) * (1 / branched); }
+			if (i === 3) { treeRoot.children[i].x = treeRoot.x - 30 * (treeRoot.x / (originalWidth * 0.5)) * (1 / branched); }
+
+			if (i <= 1) { treeRoot.children[i].y = treeRoot.y - 50 * (treeRoot.y / 200) * (1 / branched); }
+			if (i === 2 || i === 4) { treeRoot.children[i].y = treeRoot.y + 150 * (treeRoot.y / 200) * (1 / branched); }
+			if (i === 3) { treeRoot.children[i].y = treeRoot.y + 225 * (treeRoot.y / 200) * (1 / branched); }
 
 			//set target positions
 			treeRoot.children[i].target = {
 				x: treeRoot.children[i].x,
 				y: treeRoot.children[i].y
 			};
-		}
+			treeRoot.children[i].source = {
+				x: treeRoot.x,
+				y: treeRoot.y
+			}
+		};
+		//data gets changed on click events (not sure why). this guarantees data doesnt change
+		var getRoot = function() {
+			return JSON.parse(stringifiedTree);
+		};
 
-		var tempData = JSON.stringify(treeRoot);
+		//some var declarations
+		var originalWidth = 1300;
+		var width = window.innerWidth * .9;
+		if (width > originalWidth) { width = originalWidth; }
+		var height = 600;
 
-		 
+		var stringifiedTree = JSON.stringify(nodeMapping(data));
+
 		var force = d3.layout.force()
 			.linkDistance(80)
     	.charge(-120)
@@ -171,6 +237,8 @@ angular.module('newSpeakApp')
 			//not doing tick event
 			//.on("tick", tick);
 
+		svg.selectAll('*').remove();
+		svg.attr('width', width).attr("height", 600);
 
 		var
 			link = svg.selectAll(".link"),

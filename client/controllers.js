@@ -10,8 +10,14 @@ angular.module('newSpeakApp')
   ];
 })
 .controller('collocationController', function ($scope, grabSOTUinfo) {
-  //temporary
-  $scope.colData = ['democracy', 'freedom', 'health care', "my wife michelle", 'chicago', 'blue state'];
+  //temporary - change to null
+  $scope.colData = ['democracy',
+                    'freedom',
+                    ['health care', 'hostpital', 'insurance', '26', 'ambulance', 'republicans'],
+                    "my wife michelle",
+                    'chicago',
+                    'blue state'
+                   ];
   $scope.president = 'Barack Obama';
   $scope.word = '';
   $scope.nodeWords = [];
@@ -23,7 +29,7 @@ angular.module('newSpeakApp')
 
   $scope.inputOnCorrectNode = function(colData, moreNodes) {
     for (var i = 0; i < colData.length; i++ ) {
-      if (colData[i].isArray() === true) {
+      if (typeof colData[i] === 'object') {
         inputOnCorrectNode(colData[i], moreNodes);
       } else if (colData[i] === moreNodes[0]) {
           //replace the word in $scope.colData with a new array of words

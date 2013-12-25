@@ -19,3 +19,7 @@ line.link {
 h1 {
 	color: red;
 }
+
+svg {
+  border: 10px solid black;
+}
