@@ -32,8 +32,7 @@ angular.module('newSpeakApp')
   $scope.president = 'Barack Obama';
   $scope.word = '';
   
-  $scope.getSotus = function(word) {
-    debugger;
+  $scope.getSotus = function(word, mainTree) {
     grabSOTUinfo.collocation($scope.president, word)
     .then(function(data) {
       return JSON.parse(data);
@@ -42,7 +41,7 @@ angular.module('newSpeakApp')
       return treeConvert.arrayToObject(parsed);
     })
     .then(function(miniTree) {
-      $scope.colData = treeConvert.insertOnTree(miniTree, $scope.colData, word);
+      $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word);
     });
   };
 }) //end of collocationController

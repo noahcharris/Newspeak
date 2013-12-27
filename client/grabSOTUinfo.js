@@ -15,7 +15,7 @@ angular.module('newSpeakApp')
       //   d.reject(reason);
       // });
       // WHEN SERVER WORKS DELETE BELOW
-      d.resolve("['republican', elephant','chris christie', 'bush', 'conservative', 'small government']");
+      d.resolve('["republican", "elephant","chris christie", "bush", "conservative", "small government"]');
       return d.promise;
     },
 

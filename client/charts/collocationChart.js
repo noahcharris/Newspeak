@@ -3,16 +3,23 @@ angular.module('newSpeakApp')
 
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
-		
+
 		var update = function() {
 			var nodes = flatten(root),
 			links = d3.layout.tree().links(nodes);
-				
+
 		  // Restart the force layout.
 		  force
 		  .nodes(nodes)
 		  .links(links)
 		  .start();
+			
+		  //when adding nodes and links, 'link' and 'node' closure are
+		  // messed up on first click. This fixes the problem
+			if (svg.selectAll(".link")[0].length !== link[0].length) {
+				link = svg.selectAll(".link");
+				node = svg.selectAll(".node");
+			}
 		  
 		  // Update links.
 		  link = link.data(links, function(d) { return d.target.id; });
@@ -64,27 +71,34 @@ angular.module('newSpeakApp')
 		  if (d.children) {
 		  	d._children = d.children;
 		  	d.children = null;
+		  	update();
 		  } else {
 		  	if (d._children) {
 			  	d.children = d._children;
 			  	d._children = null;
+		  		update();
 		  	} else {
-		  		scope.onClick({word: d.word});
+		  		scope.onClick({tree: root, word: d.word});
 		  	}
 		  }
-		  update();
 		};
 
 		// Returns a list of all nodes under the root.
 		var flatten = function(root) {
 			var nodes = [], i = 0;
 			
-			function recurse(node) {
-				if (node.children) node.children.forEach(recurse);
-				if (!node.id) node.id = ++i;
+			var iCount = function(node) {
+				if (node.children) { node.children.forEach(iCount); }
+				if (node.id && node.id > i) { i = node.id; }
+			}
+
+			var recurse = function(node) {
+				if (node.children) { node.children.forEach(recurse); }
+				if (!node.id) { node.id = ++i; }
 				nodes.push(node);
 			}
 			
+			iCount(root);
 			recurse(root);
 			return nodes;
 		};
