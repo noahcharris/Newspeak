@@ -23,7 +23,7 @@ app.use(function(request, response, next) {
 
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 
-app.get('/', function(request, response) {
+app.get('/', function(request, response) {  //this will be different once we're using nginx
   response.redirect('/client/index.html');
 });
 
