@@ -15,7 +15,7 @@ angular.module('newSpeakApp')
 		  .start();
 			
 		  //when adding nodes and links, 'link' and 'node' closure are
-		  // messed up on first click. This fixes the problem
+		  // messed up on first click. This fixes the problem:
 			if (svg.selectAll(".link")[0].length !== link[0].length) {
 				link = svg.selectAll(".link");
 				node = svg.selectAll(".node");
@@ -40,7 +40,7 @@ angular.module('newSpeakApp')
 		  .call(force.drag);
 		  
 		  nodeEnter.append("circle")
-		  .attr("r", function(d) { return d.size * 2 + 5; });
+		  .attr("r", function(d) { return d.size * 2.7 + 5; });
 		  
 		  nodeEnter.append("text")
 		  .attr("dy", ".35em")
@@ -51,6 +51,12 @@ angular.module('newSpeakApp')
 		};//end of update
 
 		var tick = function() {
+			//when adding nodes and links, 'link' and 'node' closure are
+		  // messed up on first click. This fixes the problem:
+			if (svg.selectAll(".link")[0].length !== link[0].length) {
+				link = svg.selectAll(".link");
+				node = svg.selectAll(".node");
+			}
 			link.attr("x1", function(d) { return d.source.x; })
 			.attr("y1", function(d) { return d.source.y; })
 			.attr("x2", function(d) { return d.target.x; })
@@ -113,7 +119,7 @@ angular.module('newSpeakApp')
 		
 		var force = d3.layout.force()
 		.linkDistance(80)
-		.charge(-120)
+		.charge(-320)
 		.gravity(.05)
 		.size([width, height])
 		.on("tick", tick);

@@ -47,7 +47,7 @@ angular.module('newSpeakApp')
      },
      link: function(scope, element, attrs) {
         
-        var svg = d3.select("body").append("svg");
+        var svg = d3.select(element[0]).append("svg");
           
       	 // Browser onresize event
         window.onresize = function() {
