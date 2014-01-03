@@ -65,10 +65,18 @@ freqdir {
 #top h2 a {
   color: white;
   text-decoration: none;
+  position: relative;
 }
 
 #top h2 a:hover {
   
+}
+
+#logo {
+  top: 5px;
+  position: relative;
+  width: 53px;
+  height: 40px;
 }
 
 
@@ -96,7 +104,7 @@ freqdir {
 
 #menu li a {
   display: block;
-  padding: 20px 20px 12px 20px;
+  padding: 20px 20px 19px 20px;
   text-decoration: none;
   color: #fff;
   font-weight: bold;
