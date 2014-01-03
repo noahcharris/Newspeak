@@ -109,14 +109,15 @@ angular.module('newSpeakApp')
 			return nodes;
 		};
 
-		var width 	= window.innerWidth,
+		var width 	= window.innerWidth * .4,
 				height 	= 500,
 				root;
-
+				
 		if (width > 960) { width = 960; }
 
 		svg.attr("width", width).attr("height", height);
-		
+		svg.style("width", width);
+
 		var force = d3.layout.force()
 		.linkDistance(80)
 		.charge(-320)

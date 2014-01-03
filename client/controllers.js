@@ -9,7 +9,7 @@ angular.module('newSpeakApp')
     {name: "Loser", score: 48}
   ];
 })
-.controller('collocationController', function ($scope, grabSOTUinfo, treeConvert) {
+.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert) {
   //original array
   //temporary - change to null
   $scope.colData = {
@@ -31,6 +31,16 @@ angular.module('newSpeakApp')
     };
   $scope.president = 'Barack Obama';
   $scope.word = '';
+  $scope.freqData;
+  $scope.presidents = ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe',
+  'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William H. Harrison', 'John Tyler', 'James K. Polk',
+  'Zachary Taylor', 'Millard Fillmore', 'Franklin Pierce', 'James Buchanan', 'Abraham Lincoln', 'Andrew Johnson',
+  'Ulysses S. Grant', 'Rutherford B. Hayes', 'James A. Garfield', 'Chester A. Arthur', 'Grover Cleveland',
+  'Benjamin Harrison', 'Grover Cleveland', 'William McKinley', 'Theodore Roosevelt', 'William H. Taft',
+  'Woodrow Wilson', 'Warren G. Harding', 'Calvin Coolidge', 'Herbert Hoover', 'Franklin D. Roosevelt',
+  'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon',
+  'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
+];
   
   $scope.getSotus = function(word, mainTree) {
     grabSOTUinfo.collocation($scope.president, word)
@@ -42,23 +52,6 @@ angular.module('newSpeakApp')
     })
     .then(function(miniTree) {
       $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word);
-    });
-  };
-}) //end of collocationController
-.controller('frequencyController', function ($scope, grabSOTUinfo) {
-  $scope.freqData;
-  $scope.president = 'Barack Obama';
-  $scope.word = 'democracy';
-  
-  $scope.getSotus = function() {
-    grabSOTUinfo.frequency($scope.president, $scope.word)
-    .then(function(data) {
-      // parses the data from string to JSON
-      return JSON.parse(data);
-    })
-    .then(function(parsed) {
-      // puts the data in the scope's sotu variable to be used for D3
-      $scope.freqData = parsed;
-    });
-  };
-});
+    });//end of grabSOTUinfo
+  }; //end of $scope.getSotus
+}); //end of collocationController

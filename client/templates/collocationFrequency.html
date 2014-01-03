@@ -1,0 +1,21 @@
+<h3>Charts!</h3>
+
+<input ng-model="word" placeholder="enter term"></input>
+
+<button ng-click="getSotus($scope.word)" class="button">Get Me Some State of the Union Stuff</button>
+
+<form>
+  <input type="text" placeholder="Type for president" ng-model="president" />
+</form>
+
+<ul>
+  <li ng-repeat='pres in presidents | filter:president'>
+    {{ pres }}
+  </li>
+</ul>
+
+
+<div class="directives">
+		<coldir on-click="getSotus(word, tree)" data="colData"></coldir>
+		<freqdir id="frequencyChart" class="chart" data="freqData"></freqdir>
+</div>
