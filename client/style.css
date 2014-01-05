@@ -1,3 +1,7 @@
+ body {
+  margin: 0px;
+}
+
 /**** collocation chart ***/
 
 .node circle {
@@ -7,7 +11,7 @@
 }
 
 .node text {
-  font: 10px sans-serif;
+  font: 12px sans-serif;
   pointer-events: none;
   text-anchor: middle;
 }
@@ -18,29 +22,27 @@ line.link {
   stroke-width: 1.5px;
 }
 
+/**** overall border and placement of charts ***/
+
+.directives {
+  text-align: center
+}
+
+#collocationChart {
+  display: inline-block;
+}
+
+#frequencyChart {
+  display: inline-block;
+}
+
 svg {
-  border: 3px solid black;
+  border: 2px solid black;
   margin: 3px;
 }
 
-coldir {
-  display: inline-block;
-}
-
-
-freqdir {
-  display: inline-block;
-}
- .directives {
-  text-align: center;
- }
-
- body {
-  margin: 0px;
-}
 
 /**** Top ***/
-
 
 #top {
   width: 100%;

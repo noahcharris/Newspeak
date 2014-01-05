@@ -4,8 +4,10 @@ angular.module('newSpeakApp')
   var service = {};
   service.render = function(data, scope, element, attrs, svg) {
 
-  	var width = window.innerWidth * .4;
+  	var width 	= window.innerWidth * .4, //same as collocation chart
+  			height 	= 500;
     svg.style("width", width);
+    svg.attr("width", width).attr("height", height);
 
   	defaultChartConfig("frequencyChart", badDataSet());
 

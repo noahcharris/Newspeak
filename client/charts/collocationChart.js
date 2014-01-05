@@ -68,7 +68,7 @@ angular.module('newSpeakApp')
 		var color = function(d) {
 		  return d._children ? "#3182bd" // collapsed package
 		    : d.children ? "#c6dbef" // expanded package
-		    : "#fd8d3c"; // leaf node
+		    : "#fd3c4c"; // leaf node
 		};
     
 		// Toggle children on click.
@@ -109,7 +109,7 @@ angular.module('newSpeakApp')
 			return nodes;
 		};
 
-		var width 	= window.innerWidth * .4,
+		var width 	= window.innerWidth * .4, //same as frequency chart
 				height 	= 500,
 				root;
 				
