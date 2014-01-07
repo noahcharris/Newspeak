@@ -21,15 +21,18 @@ angular.module('newSpeakApp')
 
     frequency: function(president, word) {
       var d = $q.defer();
-      $http({
-        method: 'GET',
-        url: '/frequency',
-        params: {president: president, word: word}
-      }).success(function(data) {
-        d.resolve(data);
-      }).error(function(reason) {
-        d.reject(reason);
-      });
+      // WHEN SERVER WORKS UNCOMMENT BELOW
+      // $http({
+      //   method: 'GET',
+      //   url: '/frequency',
+      //   params: {president: president, word: word}
+      // }).success(function(data) {
+      //   d.resolve(data);
+      // }).error(function(reason) {
+      //   d.reject(reason);
+      // });
+      // WHEN SERVER WORKS DELETE BELOW
+      d.resolve('["new word", 350, 300, 605, 500, 800, 900, 200, 1100]');
       return d.promise;
     }
 

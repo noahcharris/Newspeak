@@ -41,17 +41,20 @@ angular.module('newSpeakApp')
 		        }
 		    }
 		    else {
-		        formatter = d3.format(",.1f");
+		        formatter = d3.format(",1f");
 		    }
 		    chart.margin({right: 40});
+		    chart.yAxis.axisLabelDistance(40);//brandon manually added this in to fix label on Y axis
+
 		    chart.xAxis // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
 		        .tickFormat(
 		            formatter
-		          );
+		          )
+		        .axisLabel('Year in Office');
 
 		    chart.yAxis
 		        .axisLabel('Voltage (v)')
-		        .tickFormat(d3.format(',.2f'));
+		        .tickFormat(d3.format(',2f'));
 
 
 		    d3.select('#' + containerid + ' svg')
@@ -65,19 +68,6 @@ angular.module('newSpeakApp')
 		  });
 		}
 
-		function badDataSet() {
-		  var series1 = [], series2 = [];
-		  for(var i =0; i < 30; i++) {
-		    series1.push({x:i, y: i*0.3 + 12});
-		  }
-		  for(i = 0; i < 30; i += 5) {
-		    series2.push({x:i, y: i*0.7 + 8});
-		  }
-		  return [
-		      {values: series1, key:"Series 1"},
-		      {values: series2, key:"Series 2"}
-		  ];
-		}
   };//end of .render
 
   return service;

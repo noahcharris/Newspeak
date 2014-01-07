@@ -6,12 +6,12 @@ angular.module('newSpeakApp')
       
       var info = [];
       for (var i = 1; i < newData.length; i++) {
-        info.push({x: i - 1, y: newData[i]});
+        info.push({x: i, y: newData[i]});
       }
       var newSeries = {values: info, key: newData[0]};
       previousData.push(newSeries);
       return previousData;
-    };//end of function
+    }//end of function
 
   };//end of service object
   

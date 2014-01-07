@@ -9,7 +9,7 @@ angular.module('newSpeakApp')
     {name: "Loser", score: 48}
   ];
 })
-.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert) {
+.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert) {
   $scope.hello = function(pres) {
     alert(pres);
   };
@@ -34,7 +34,10 @@ angular.module('newSpeakApp')
     };
   $scope.president = '';
   $scope.word = '';
-  $scope.freqData;
+  var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
+  var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
+  var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
+  $scope.freqData = [{values: series1, key: "democracy"},{values: series2, key: 'freedom'},{values: series3, key: 'onemore'}];
   $scope.presidents = ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe',
   'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William H. Harrison', 'John Tyler', 'James K. Polk',
   'Zachary Taylor', 'Millard Fillmore', 'Franklin Pierce', 'James Buchanan', 'Abraham Lincoln', 'Andrew Johnson',
