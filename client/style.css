@@ -58,7 +58,7 @@
 }
 
 #menu ul {
-  font-size: 10px;
+  font-size: 13px;
   margin:0;
   padding:0;
   list-style: none;
@@ -106,15 +106,63 @@
 .rightColumn {
   width: 87%;
   float: right;
+}
+
+#colfreq {
   text-align: center;
 }
 
-ul {
+#postPick {
+  text-align: center;
+}
+
+/**** main.html ***/
+
+#wordPic {
+  position: relative;
+  left: 200px;
+}
+
+#arrow {
+  position: relative;
+  top: -350px;
+}
+
+/**** choices.html (and colfrequency.html for h1) ***/
+
+h1 {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+#chooseWord {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 37px;
+  margin-top: 10px;
+}
+
+#postPick ul {
+  font-family: fantasy;
+  font-size: 25px;
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+#postPick a:hover {
+  color: rgb(255, 26, 26);
+}
+
+/**** president list styling ***/
+
+.leftColumn ul {
   list-style-type: none;
   padding-left: 3px;
 }
 
-li:hover {
+.leftColumn li:hover {
   background: rgb(165, 184, 242);
 }
 

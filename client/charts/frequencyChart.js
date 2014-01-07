@@ -4,7 +4,7 @@ angular.module('newSpeakApp')
   var service = {};
   service.render = function(data, scope, element, attrs, svg) {
 
-  	var width 	= window.innerWidth * .4, //same as collocation chart
+  	var width 	= window.innerWidth * .87/2 - 17, //same as collocation chart (width of right column is 87%)
   			height 	= 500;
     svg.style("width", width);
     svg.attr("width", width).attr("height", height);
@@ -53,7 +53,7 @@ angular.module('newSpeakApp')
 		        .axisLabel('Year in Office');
 
 		    chart.yAxis
-		        .axisLabel('Voltage (v)')
+		        .axisLabel('Frequency')
 		        .tickFormat(d3.format(',2f'));
 
 

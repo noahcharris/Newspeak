@@ -1,5 +1,5 @@
 angular.module('newSpeakApp')
-.factory('practiceChart', function() {
+.factory('barChart', function() {
 
   var service = {};
   service.render = function(data, scope, element, attrs, svg) {
@@ -24,7 +24,7 @@ angular.module('newSpeakApp')
         // our xScale
         xScale = d3.scale.linear()
         .domain([0, d3.max(data, function(d) {
-          return d.score;
+          return d.total;
         })])
         .range([0, width]);
         
@@ -41,11 +41,11 @@ angular.module('newSpeakApp')
       .attr('y', function(d,i) {
         return i * (barHeight + barPadding);
       })
-      .attr('fill', function(d) { return color(d.score); })
+      .attr('fill', function(d) { return color(d.total); })
       .transition()
       .duration(1000)
       .attr('width', function(d) {
-        return xScale(d.score);
+        return xScale(d.total);
       });
 
      //create the text on the rects for the bar chart
@@ -59,7 +59,7 @@ angular.module('newSpeakApp')
      })
      .attr('x', 15)
      .text(function(d) {
-      return d.name + " (scored: " + d.score + ")";
+      return d.word + " (total: " + d.total + ")";
      });
   };//end of .render
 

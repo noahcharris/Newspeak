@@ -1,28 +1,23 @@
-<h3>Charts!</h3>
-
-<input ng-model="word" placeholder="enter term"></input>
-
-<button ng-click="getSotus($scope.word)" class="button">Get Me Some State of the Union Stuff</button>
-
-
 <div class='leftColumn'>
 	<form>
-	  <input type="text" placeholder="Type for president" ng-model="president" />
+	  <input type="text" placeholder="Type for president" ng-model="tempPresident" />
 	</form>
 
-	<ul ng-show="president === ''">
+	<ul ng-show="tempPresident === ''">
 	  <li ng-repeat='pres in presidents'>
-	    <a ng-click="hello(pres)">{{ pres }}</a>
+	    <a ng-click="startOver(pres)">{{ pres }}</a>
 	  </li>
 	</ul>
-	<ul ng-show="president !== ''">
-  	<li ng-repeat='pres in presidents | filter: president'>
-    	<a ng-click="hello(pres)">{{ pres }}</a>
+	<ul ng-show="tempPresident !== ''">
+  	<li ng-repeat='pres in presidents | filter: tempPresident'>
+    	<a ng-click="startOver(pres)">{{ pres }}</a>
   	</li>
 	</ul>
 </div>
 
-<div class='rightColumn'>
-		<coldir id="collocationChart" on-click="getSotus(word, tree)" data="colData"></coldir>
-		<freqdir id="frequencyChart" data="freqData"></freqdir>
+<div class='rightColumn' id='colfreq'>
+	<h1><strong>{{ president }}</strong></h1>
+		<coldir class="animated slideInLeft" id="collocationChart" on-click="getSotus(word, tree)" data="colData"></coldir>
+		<freqdir class="animated flipIn" id="frequencyChart" data="freqData"></freqdir>
+		<bardir bar-height="20" bar-padding="5" data="barData"></bardir>
 </div>

@@ -109,7 +109,7 @@ angular.module('newSpeakApp')
 			return nodes;
 		};
 
-		var width 	= window.innerWidth * .4, //same as frequency chart
+		var width 	= window.innerWidth * .87/2 - 17, //same as frequency chart (width of right column is 87%)
 				height 	= 500,
 				root;
 				
