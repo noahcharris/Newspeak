@@ -1,5 +1,5 @@
 angular.module('newSpeakApp')
-.directive('practice',['practiceChart', function(practiceChart) {
+.directive('bardir',['barChart', function(barChart) {
 	return {
 		restrict: 'EA',
      // directive code
@@ -31,7 +31,7 @@ angular.module('newSpeakApp')
 					}, true);
 
           scope.render = function(data, scope, element, attrs, svg) {
-          	practiceChart.render(data, scope, element, attrs, svg);
+          	barChart.render(data, scope, element, attrs, svg);
           };//end of scope.render
 
       	}//end of link

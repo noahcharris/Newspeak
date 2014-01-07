@@ -106,6 +106,9 @@
 .rightColumn {
   width: 87%;
   float: right;
+}
+
+.rightColumn.colfreq {
   text-align: center;
 }
 

@@ -1,8 +1,26 @@
 <h3>Welcome to the main screen</h3>
 
 {{ greeting }}
+{{suggested}}
 
+<div class='leftColumn'>
+	<form>
+	  <input type="text" placeholder="Type for president" ng-model="president" />
+	</form>
 
-<input ng-model="data[2].score" placeholder="change score"></input>
+	<ul ng-show="president === ''">
+	  <li ng-repeat='pres in presidents'>
+	    <a ng-click="setPres(pres)">{{ pres }}</a>
+	  </li>
+	</ul>
+	<ul ng-show="president !== ''">
+  	<li ng-repeat='pres in presidents | filter: president'>
+    	<a ng-click="setPres(pres)">{{ pres }}</a>
+  	</li>
+	</ul>
+</div>
 
-<practice bar-height="20" bar-padding="5" data="data"></practice>
+<div class='rightColumn main'>
+	<img id="choice" src="../images/choice.png">
+	<img id="arrow" src="../images/arrow.png">
+</div>

@@ -1,5 +1,5 @@
 angular.module('newSpeakApp')
-.factory('practiceChart', function() {
+.factory('barChart', function() {
 
   var service = {};
   service.render = function(data, scope, element, attrs, svg) {

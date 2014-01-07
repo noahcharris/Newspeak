@@ -1,18 +1,32 @@
 angular.module('newSpeakApp')
-.controller('MainController', function ($scope) {
+.controller('MainController', function ($scope, grabSOTUinfo, transferData) {
   $scope.test = 'this worked!';
   $scope.greeting = "Resize the page to see the re-rendering";
-  $scope.data = [
+  $scope.presidents = transferData.presidents;
+  $scope.tempPresident = '';
+  $scope.president;
+  $scope.suggested;
+  $scope.setPres = function(pres) {
+    $scope.president = pres;
+    grabSOTUinfo.getTopWords($scope.president)
+    .then(function(data) {
+      return JSON.parse(data);
+    })
+    .then(function(parsed) {
+      $scope.suggested = parsed;
+    });
+  };
+})
+.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert, transferData) {
+  $scope.hello = function(pres) {
+    alert(pres);
+  };
+  $scope.barData = [
     {name: "Greg", score: 98},
     {name: "Ari", score: 96},
     {name: 'Q', score: 75},
     {name: "Loser", score: 48}
   ];
-})
-.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert) {
-  $scope.hello = function(pres) {
-    alert(pres);
-  };
   //original array
   //temporary - change to null
   $scope.colData = {
@@ -32,21 +46,14 @@ angular.module('newSpeakApp')
         {word: 'putin', size: 1}
       ]
     };
-  $scope.president = '';
+  $scope.tempPresident = '';
+  $scope.president;
   $scope.word = '';
   var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
   var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
   var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
   $scope.freqData = [{values: series1, key: "democracy"},{values: series2, key: 'freedom'},{values: series3, key: 'onemore'}];
-  $scope.presidents = ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe',
-  'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William H. Harrison', 'John Tyler', 'James K. Polk',
-  'Zachary Taylor', 'Millard Fillmore', 'Franklin Pierce', 'James Buchanan', 'Abraham Lincoln', 'Andrew Johnson',
-  'Ulysses S. Grant', 'Rutherford B. Hayes', 'James A. Garfield', 'Chester A. Arthur', 'Grover Cleveland',
-  'Benjamin Harrison', 'William McKinley', 'Theodore Roosevelt', 'William H. Taft',
-  'Woodrow Wilson', 'Warren G. Harding', 'Calvin Coolidge', 'Herbert Hoover', 'Franklin D. Roosevelt',
-  'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon',
-  'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
-];
+  $scope.presidents = transferData.presidents;
   
   $scope.getSotus = function(word, mainTree) {
     grabSOTUinfo.collocation($scope.president, word)
