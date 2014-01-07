@@ -4,18 +4,20 @@
 
 <button ng-click="getSotus($scope.word)" class="button">Get Me Some State of the Union Stuff</button>
 
-<form>
-  <input type="text" placeholder="Type for president" ng-model="president" />
-</form>
 
-<ul>
-  <li ng-repeat='pres in presidents | filter:president'>
-    {{ pres }}
-  </li>
-</ul>
+<div class='leftColumn'>
+	<form>
+	  <input type="text" placeholder="Type for president" ng-model="president" />
+	</form>
 
+	<ul>
+	  <li ng-repeat='pres in presidents | filter:president'>
+	    {{ pres }}
+	  </li>
+	</ul>
+</div>
 
-<div class="directives">
+<div class='rightColumn'>
 		<coldir id="collocationChart" on-click="getSotus(word, tree)" data="colData"></coldir>
 		<freqdir id="frequencyChart" data="freqData"></freqdir>
 </div>

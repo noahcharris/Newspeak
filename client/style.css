@@ -22,11 +22,20 @@ line.link {
   stroke-width: 1.5px;
 }
 
-/**** overall border and placement of charts ***/
+/**** column placement ***/
 
-.directives {
-  text-align: center
+.leftColumn {
+  float: left;
+  width: 15%;
 }
+
+.rightColumn {
+  width: 85%;
+  float: right;
+  text-align: center;
+}
+
+/**** overall border and placement of charts ***/
 
 #collocationChart {
   display: inline-block;
