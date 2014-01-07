@@ -2,54 +2,11 @@
   margin: 0px;
 }
 
-/**** collocation chart ***/
+/**** VIEWS ***/
 
-.node circle {
-  cursor: pointer;
-  stroke: #3182bd;
-  stroke-width: 1.5px;
+#views {
+  margin: 5px;
 }
-
-.node text {
-  font: 12px sans-serif;
-  pointer-events: none;
-  text-anchor: middle;
-}
-
-line.link {
-  fill: none;
-  stroke: #9ecae1;
-  stroke-width: 1.5px;
-}
-
-/**** column placement ***/
-
-.leftColumn {
-  float: left;
-  width: 15%;
-}
-
-.rightColumn {
-  width: 85%;
-  float: right;
-  text-align: center;
-}
-
-/**** overall border and placement of charts ***/
-
-#collocationChart {
-  display: inline-block;
-}
-
-#frequencyChart {
-  display: inline-block;
-}
-
-svg {
-  border: 2px solid black;
-  margin: 3px;
-}
-
 
 /**** Top ***/
 
@@ -138,8 +95,64 @@ svg {
   color: black;
 }
 
-/**** VIEWS ***/
 
-#views {
-  margin: 5px;
+/**** column placement ***/
+
+.leftColumn {
+  float: left;
+  width: 13%;
 }
+
+.rightColumn {
+  width: 87%;
+  float: right;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 3px;
+}
+
+li:hover {
+  background: rgb(165, 184, 242);
+}
+
+/**** overall border and placement of charts ***/
+
+#collocationChart {
+  display: inline-block;
+}
+
+#frequencyChart {
+  display: inline-block;
+}
+
+svg {
+  border: 2px solid black;
+  margin: 3px;
+}
+
+
+/**** collocation chart ***/
+
+.node circle {
+  cursor: pointer;
+  stroke: #3182bd;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 12px sans-serif;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+
+/**** frequency chart: SEE nvd3.css ***/
+

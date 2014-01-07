@@ -10,10 +10,15 @@
 	  <input type="text" placeholder="Type for president" ng-model="president" />
 	</form>
 
-	<ul>
-	  <li ng-repeat='pres in presidents | filter:president'>
-	    {{ pres }}
+	<ul ng-show="president === ''">
+	  <li ng-repeat='pres in presidents'>
+	    <a ng-click="hello(pres)">{{ pres }}</a>
 	  </li>
+	</ul>
+	<ul ng-show="president !== ''">
+  	<li ng-repeat='pres in presidents | filter: president'>
+    	<a ng-click="hello(pres)">{{ pres }}</a>
+  	</li>
 	</ul>
 </div>
 
