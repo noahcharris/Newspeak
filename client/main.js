@@ -7,13 +7,9 @@ angular.module('newSpeakApp', [
       controller: 'MainController',
       templateUrl: '/client/templates/main.html'
     })
-    .when('/frequency', {
-    	controller: 'frequencyController',
-    	templateUrl: '/client/templates/frequency.html'
-    })
-    .when('/collocation', {
-    	controller: 'collocationController',
-    	templateUrl: '/client/templates/collocation.html'
+    .when('/charts', {
+    	controller: 'collocationAndFrequencyController',
+    	templateUrl: '/client/templates/collocationFrequency.html'
     })
     .otherwise({
       redirectTo: '/'

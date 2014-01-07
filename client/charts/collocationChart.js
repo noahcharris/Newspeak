@@ -4,32 +4,7 @@ angular.module('newSpeakApp')
 	var service = {};
 	service.render = function(data, scope, element, attrs, svg) {
 
-		//data gets changed on click events (not sure why). this guarantees data doesnt change
-		var getRoot = function() {
-			return JSON.parse(tempData);
-		}; //end of get root
-
-
-		// Returns a list of all nodes under the root.
-		var flatten = function (root) {
-			var
-				nodes = [],
-				i 		= 0;
-
-			var recurse = function (node) {
-				if (node.children) { node.children.forEach(recurse); }
-				if (!node.id) { node.id = ++i; }
-				nodes.push(node);
-			};
-
-			recurse(root);
-			return nodes;
-		};
-
-
-
-		var update = function (root) {
-			
+		var update = function() {
 			var nodes = flatten(root),
 			links = d3.layout.tree().links(nodes);
 
@@ -38,136 +13,123 @@ angular.module('newSpeakApp')
 		  .nodes(nodes)
 		  .links(links)
 		  .start();
-
+			
+		  //when adding nodes and links, 'link' and 'node' closure are
+		  // messed up on first click. This fixes the problem:
+			if (svg.selectAll(".link")[0].length !== link[0].length) {
+				link = svg.selectAll(".link");
+				node = svg.selectAll(".node");
+			}
+		  
 		  // Update links.
 		  link = link.data(links, function(d) { return d.target.id; });
-
+		  
 		  link.exit().remove();
-
+		  
 		  link.enter().insert("line", ".node")
-		  .attr("class", "link")
-		  .attr("x1", 480)
-      .attr("y1", 250)
-      .attr("x2", 480)
-      .attr("y2", 250)
-      .transition().duration(1500)
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
-
+		  .attr("class", "link");
+		  
 		  // Update nodes.
 		  node = node.data(nodes, function(d) { return d.id; });
-
+		  
 		  node.exit().remove();
-
+		  
 		  var nodeEnter = node.enter().append("g")
 		  .attr("class", "node")
 		  .on("click", click)
 		  .call(force.drag);
-
+		  
 		  nodeEnter.append("circle")
-		  .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
-      .attr("r", 30)
-      .transition()
-    		.duration(1500)
-		  .attr("r", function(d) { return d.radius; });
-
-
+		  .attr("r", function(d) { return d.size * 2.7 + 5; });
+		  
 		  nodeEnter.append("text")
 		  .attr("dy", ".35em")
-		  .attr('x', function(d) { return d.x; })
-		  .attr('y', function(d) { return d.y; })
 		  .text(function(d) { return d.word; });
-
+		  
 		  node.select("circle")
 		  .style("fill", color);
+		};//end of update
 
-		}; // end of update function
-
-		//not doing tick event
-		// var tick = function () {
-		// 	link.attr("x1", 480)
-		// 			.attr("y1", 250)
-		// 			.attr("x2", function(d, i) {d = getRoot(); return d.children[i].target.x; })
-		// 			.attr("y2", function(d, i) {d = getRoot(); return d.children[i].target.y; });
-
-		// 	node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; });
-		// };
-
-		// Color leaf nodes orange, and packages white or blue.
-		var color = function (d) {
-			return d._children ? "#3182bd" // collapsed package
-      : d.children ? "#c6dbef" // expanded package
-      : "#fd8d3c"; // leaf node
-		};
-
-		// Toggle children on click.
-		var click = function (d) {
-			if (!d3.event.defaultPrevented) {
-				if (d.children) {
-					d.children = null;
-				} else {
-					d = getRoot();
-				}
-				update(d);
+		var tick = function() {
+			//when adding nodes and links, 'link' and 'node' closure are
+		  // messed up on first click. This fixes the problem:
+			if (svg.selectAll(".link")[0].length !== link[0].length) {
+				link = svg.selectAll(".link");
+				node = svg.selectAll(".node");
 			}
+			link.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+			
+			node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 		};
 
-		//some var declarations
-		var width = 960,
-		    height = 500;
+		var color = function(d) {
+		  return d._children ? "#3182bd" // collapsed package
+		    : d.children ? "#c6dbef" // expanded package
+		    : "#fd3c4c"; // leaf node
+		};
+    
+		// Toggle children on click.
+		var click = function(d) {
+		  if (d3.event.defaultPrevented) return; // ignore drag
+		  if (d.children) {
+		  	d._children = d.children;
+		  	d.children = null;
+		  	update();
+		  } else {
+		  	if (d._children) {
+			  	d.children = d._children;
+			  	d._children = null;
+		  		update();
+		  	} else {
+		  		scope.onClick({tree: root, word: d.word});
+		  	}
+		  }
+		};
 
-		//set initial properties on tree (data comes in form of an array)
-		var treeRoot = {};
-		treeRoot.word = data[0];
-		treeRoot.x = width/2;
-		treeRoot.y = height/2;
-		treeRoot.radius = 100;
-		treeRoot.children = []; //this will be an array of objects
-		childrens = data.slice(1);	
-		for (var i = 0; i < childrens.length; i++) {
-			//make object
-			treeRoot.children[i] = {};
-			//set word
-			treeRoot.children[i].word = childrens[i];
-			//set radius
-			treeRoot.children[i].radius = (childrens.length - i) * 25;
-			//set position
-			//from order in array, go clockwise starting from top left corner)
-			if (i === 0 || i === 4) {treeRoot.children[i].x = 200; }
-			if (i === 1 || i === 2) { treeRoot.children[i].x = 800; }
-			if (i === 3) { treeRoot.children[i].x = 600; }
+		// Returns a list of all nodes under the root.
+		var flatten = function(root) {
+			var nodes = [], i = 0;
+			
+			var iCount = function(node) {
+				if (node.children) { node.children.forEach(iCount); }
+				if (node.id && node.id > i) { i = node.id; }
+			}
 
-			if (i <= 1) { treeRoot.children[i].y = 200; }
-			if (i === 2 || i === 4) { treeRoot.children[i].y = 300; }
-			if (i === 3) { treeRoot.children[i].y = 400; }
+			var recurse = function(node) {
+				if (node.children) { node.children.forEach(recurse); }
+				if (!node.id) { node.id = ++i; }
+				nodes.push(node);
+			}
+			
+			iCount(root);
+			recurse(root);
+			return nodes;
+		};
 
-			//set target positions
-			treeRoot.children[i].target = {
-				x: treeRoot.children[i].x,
-				y: treeRoot.children[i].y
-			};
-		}
+		var width 	= window.innerWidth * .4, //same as frequency chart
+				height 	= 500,
+				root;
+				
+		if (width > 960) { width = 960; }
 
-		var tempData = JSON.stringify(treeRoot);
+		svg.attr("width", width).attr("height", height);
+		svg.style("width", width);
 
-		 
 		var force = d3.layout.force()
-			.linkDistance(80)
-    	.charge(-120)
-    	.gravity(.05)
-			.size([width, height]);
-			//not doing tick event
-			//.on("tick", tick);
-
-
-		var
-			link = svg.selectAll(".link"),
-			node = svg.selectAll(".node");
-
-		//start the process
-		root = getRoot();
-		update(root);
+		.linkDistance(80)
+		.charge(-320)
+		.gravity(.05)
+		.size([width, height])
+		.on("tick", tick);
+		
+		var link = svg.selectAll(".link"),
+		node = svg.selectAll(".node");
+		
+		var root = data;
+		update();
 
   };//end of .render
 

@@ -9,38 +9,64 @@ angular.module('newSpeakApp')
     {name: "Loser", score: 48}
   ];
 })
-.controller('collocationController', function ($scope, grabSOTUinfo) {
-  //temporary
- $scope.colData = ['democracy', 'freedom', 'health care', "my wife michelle", 'chicago', 'blue state'];
-  $scope.president = 'Barack Obama';
-  $scope.word = 'democracy';
+.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert) {
+  $scope.hello = function(pres) {
+    alert(pres);
+  };
+  //original array
+  //temporary - change to null
+  $scope.colData = {
+      word: "democracy",
+      size: 6,
+      children: [
+        {word: 'freedom', size: 5},
+        {word: 'health care', size: 4, children: [
+          {word: 'insurance', size: 5},
+          {word: 'website', size: 4},
+          {word: 'republican', size: 3},
+          {word: 'hospital', size: 2},
+          {word: 'healthcare.gov', size: 1}
+        ]},
+        {word: 'economy', size: 3},
+        {word: 'michelle', size: 2},
+        {word: 'putin', size: 1}
+      ]
+    };
+  $scope.president = '';
+  $scope.word = '';
+  var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
+  var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
+  var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
+  $scope.freqData = [{values: series1, key: "democracy"},{values: series2, key: 'freedom'},{values: series3, key: 'onemore'}];
+  $scope.presidents = ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe',
+  'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William H. Harrison', 'John Tyler', 'James K. Polk',
+  'Zachary Taylor', 'Millard Fillmore', 'Franklin Pierce', 'James Buchanan', 'Abraham Lincoln', 'Andrew Johnson',
+  'Ulysses S. Grant', 'Rutherford B. Hayes', 'James A. Garfield', 'Chester A. Arthur', 'Grover Cleveland',
+  'Benjamin Harrison', 'William McKinley', 'Theodore Roosevelt', 'William H. Taft',
+  'Woodrow Wilson', 'Warren G. Harding', 'Calvin Coolidge', 'Herbert Hoover', 'Franklin D. Roosevelt',
+  'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon',
+  'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
+];
   
-  $scope.getSotus = function() {
-    grabSOTUinfo.collocation($scope.president, $scope.word)
+  $scope.getSotus = function(word, mainTree) {
+    grabSOTUinfo.collocation($scope.president, word)
     .then(function(data) {
-      // parses the data from string to JSON
       return JSON.parse(data);
     })
     .then(function(parsed) {
-      // puts the data in the scope's sotu variable to be used for D3
-      $scope.colData = parsed;
-    });
-  };
-})
-.controller('frequencyController', function ($scope, grabSOTUinfo) {
-  $scope.freqData;
-  $scope.president = 'Barack Obama';
-  $scope.word = 'democracy';
-  
-  $scope.getSotus = function() {
-    grabSOTUinfo.frequency($scope.president, $scope.word)
+      return treeConvert.arrayToObject(parsed);
+    })
+    .then(function(miniTree) {
+      $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word);
+    });//end of grabSOTUinfo.collocation
+
+    grabSOTUinfo.frequency($scope.president, word)
     .then(function(data) {
-      // parses the data from string to JSON
       return JSON.parse(data);
     })
     .then(function(parsed) {
-      // puts the data in the scope's sotu variable to be used for D3
-      $scope.freqData = parsed;
-    });
-  };
-});
+      $scope.freqData = graphConvert.addToGraphData(parsed, $scope.freqData);
+    });//end of grabSOTUinfo.frequency
+
+  }; //end of $scope.getSotus
+}); //end of collocationController

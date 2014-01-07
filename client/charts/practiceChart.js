@@ -16,7 +16,7 @@ angular.module('newSpeakApp')
     if (!data) return;
 
     // setup variables
-    var width = d3.select(element[0]).node().offsetWidth - margin,
+    var width = window.innerWidth - margin,
         // calculate the height
         height = scope.data.length * (barHeight + barPadding),
         // Use the category20() scale function for multicolor support
@@ -27,7 +27,7 @@ angular.module('newSpeakApp')
           return d.score;
         })])
         .range([0, width]);
-
+        
     // set the height based on the calculations above
     svg.attr('height', height);
 

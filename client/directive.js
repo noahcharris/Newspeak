@@ -11,7 +11,7 @@ angular.module('newSpeakApp')
         
         var svg = d3.select(element[0])
         	.append('svg')
-        	.style('width', '100%');
+        	.style('width', '99%');
 
         	 // Browser onresize event
           window.onresize = function() {
@@ -42,41 +42,32 @@ angular.module('newSpeakApp')
 		restrict: 'EA',
      // directive code
      scope: {
-     	data: '='
+     	data: '=',
+      onClick: '&' //parent execution binding
      },
      link: function(scope, element, attrs) {
-        // our d3 code will go here
         
-        var svg = d3.select(element[0])
-        	.append('svg')
-        	.attr("width", 960)
-    			.attr("height", 500);
+        var svg = d3.select(element[0]).append("svg");
+          
+      	 // Browser onresize event
+        window.onresize = function() {
+          scope.$apply();
+        };
 
-        	 // Browser onresize event
-          window.onresize = function() {
-            scope.$apply();
-          };
+        // watch for data changes and re-render
+  			scope.$watch('data', function(newVals, oldVals) {
+          if (!newVals) { return; }
+  			  scope.render(newVals, scope, element, attrs, svg);
+  			}, true);
 
-        	// Watch for resize event
-          // scope.$watch(function() {
-          //   return angular.element(window)[0].innerWidth;
-          // }, function() {
-          //   scope.render(scope.data, scope, element, attrs, svg);
-          // });
+        scope.render = function(data, scope, element, attrs, svg) {
+        	collocationChart.render(data, scope, element, attrs, svg);
+        };//end of scope.render
 
-          // watch for data changes and re-render
-					scope.$watch('data', function(newVals, oldVals) {
-					  return scope.render(newVals, scope, element, attrs, svg);
-					}, true);
-
-          scope.render = function(data, scope, element, attrs, svg) {
-          	collocationChart.render(data, scope, element, attrs, svg);
-          };//end of scope.render
-
-      	}//end of link
-    	};//end of return
+    	}//end of link
+    };//end of return
 }])
-.directive('freqDir',['frequencyChart', function(frequencyChart) {
+.directive('freqdir',['frequencyChart', function(frequencyChart) {
 	return {
 		restrict: 'EA',
      // directive code
@@ -84,34 +75,26 @@ angular.module('newSpeakApp')
      	data: '='
      },
      link: function(scope, element, attrs) {
-        // our d3 code will go here
         
-        var svg = d3.select(element[0])
-        	.append('svg')
-        	.style('width', '100%');
+        var svg = d3.select(element[0]).append('svg');
 
-        	 // Browser onresize event
-          window.onresize = function() {
-            scope.$apply();
-          };
+        // Watch for resize event
+        scope.$watch(function() {
+          return angular.element(window)[0].innerWidth;
+        }, function() {
+          scope.render(scope.data, scope, element, attrs, svg);
+        });
 
-        	// Watch for resize event
-          scope.$watch(function() {
-            return angular.element(window)[0].innerWidth;
-          }, function() {
-            scope.render(scope.data, scope, element, attrs, svg);
-          });
+        // watch for data changes and re-render
+				scope.$watch('data', function(newVals, oldVals) {
+				  scope.render(newVals, scope, element, attrs, svg);
+				}, true);
 
-          // watch for data changes and re-render
-					scope.$watch('data', function(newVals, oldVals) {
-					  return scope.render(newVals, scope, element, attrs, svg);
-					}, true);
+        scope.render = function(data, scope, element, attrs, svg) {
+        	frequencyChart.render(data, scope, element, attrs, svg);
+        };//end of scope.render
 
-          scope.render = function(data, scope, element, attrs, svg) {
-          	practiceChart.render(data, scope, element, attrs, svg);
-          };//end of scope.render
-
-      	}//end of link
-    	};//end of return
+    	}//end of link
+  	};//end of return
 }]);//end of directive
 
