@@ -1,5 +1,5 @@
 angular.module('newSpeakApp')
-.factory('treeConvert', function($q) {
+.factory('treeConvert', function() {
 
   var service = {
     arrayToObject: function(array) {

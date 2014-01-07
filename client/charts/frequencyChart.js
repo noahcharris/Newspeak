@@ -9,7 +9,7 @@ angular.module('newSpeakApp')
     svg.style("width", width);
     svg.attr("width", width).attr("height", height);
 
-  	defaultChartConfig("frequencyChart", badDataSet());
+  	defaultChartConfig("frequencyChart", data);
 
 		function defaultChartConfig(containerid, data, guideline, useDates, auxOptions) {
 		  if (auxOptions === undefined) auxOptions = {};

@@ -55,6 +55,15 @@ angular.module('newSpeakApp')
     })
     .then(function(miniTree) {
       $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word);
-    });//end of grabSOTUinfo
+    });//end of grabSOTUinfo.collocation
+
+    grabSOTUinfo.frequency($scope.president, word)
+    .then(function(data) {
+      return JSON.parse(data);
+    })
+    .then(function(parsed) {
+      $scope.freqData = graphConvert.addToGraphData(parsed, $scope.freqData);
+    });//end of grabSOTUinfo.frequency
+
   }; //end of $scope.getSotus
 }); //end of collocationController
