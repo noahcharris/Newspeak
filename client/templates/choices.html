@@ -17,7 +17,7 @@
 
 <div class='rightColumn main' id='postPick'>
 	<h1><strong>TOP WORDS FOR {{ president.toUpperCase() }}</strong></h1>
-	<h2>choose word</h2>
+	<h2 id="chooseWord">choose word</h2>
 	<ul>
 		<li ng-repeat='word in suggested' ng-click="sendData(word)">
 	  	<a>{{ word }}</a>

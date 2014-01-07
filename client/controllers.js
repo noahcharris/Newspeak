@@ -25,16 +25,27 @@ angular.module('newSpeakApp')
     $location.url('charts');
   };
 })
-.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert, transferData, navBar) {
+.controller('collocationAndFrequencyController', function ($scope, $location, grabSOTUinfo, treeConvert, graphConvert, transferData, navBar) {
   navBar.highlight();
   $scope.startOver = function(pres) {
-    alert(pres);
+    $scope.president = pres;
+    grabSOTUinfo.getTopWords($scope.president)
+    .then(function(data) {
+      return JSON.parse(data);
+    })
+    .then(function(parsed) {
+      transferData.save(parsed, $scope.president, $scope.tempPresident);
+    }).then(function() {
+      debugger;
+      $location.url('choices');
+    });
   };
   $scope.barData = [
-    {name: "Greg", score: 98},
-    {name: "Ari", score: 96},
-    {name: 'Q', score: 75},
-    {name: "Loser", score: 48}
+    {word: "Greg", total: 98},
+    {word: "Ari", total: 96},
+    {word: 'Q', total: 75},
+    {word: "Loser", total: 48},
+    {word: "bob", total: 58}
   ];
   //original array
   //temporary - change to null
@@ -58,6 +69,7 @@ angular.module('newSpeakApp')
   $scope.tempPresident = transferData.tempPresident;
   $scope.president = transferData.president;
   $scope.word = transferData.word;
+  $scope.getSotus = ($scope.word);
   var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
   var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
   var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
@@ -82,6 +94,7 @@ angular.module('newSpeakApp')
     })
     .then(function(parsed) {
       $scope.freqData = graphConvert.addToGraphData(parsed, $scope.freqData);
+      $scope.barData = graphConvert.addToBarData($scope.freqData);
     });//end of grabSOTUinfo.frequency
 
   }; //end of $scope.getSotus
