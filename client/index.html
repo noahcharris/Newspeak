@@ -46,32 +46,7 @@
 		<script src="/client/factories/treeConvert.js"></script>
 		<script src="/client/factories/graphConvert.js"></script>
 		<script src="/client/factories/transferData.js"></script>
-		<script>
-			//script for navbar
-			var anchors = document.getElementsByTagName('a');
-			var menu = document.getElementById('menu');
-			var menuAnchors = menu.getElementsByTagName('a');
-			
-			var checkCurrent = function() {
-				for (a = 0; a < menuAnchors.length; a++) {
-					menuAnchors[a].className = null;
-					if (menuAnchors[a].hash === window.location.hash) {
-						menuAnchors[a].className += 'current';
-					}
-				}
-			};
-
-			//run initially
-			checkCurrent();
-
-			//set up listeners
-			for (var i = 0; i<anchors.length; i++) {
-				anchors[i].onclick = function() {
-					setTimeout(checkCurrent, 50);
-				};
-			}
-
-		</script>
+		<script src="/client/factories/navBar.js"></script>
 
 	</body>
 </html>

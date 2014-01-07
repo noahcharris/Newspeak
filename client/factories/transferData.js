@@ -2,9 +2,10 @@ angular.module('newSpeakApp')
 .factory('transferData', function() {
 
   var service = {
-    save: function(president, word) {
-      
-    },
+    suggested: null,
+    president: null,
+    tempPresident: '',
+    word: null,
 
     presidents: ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Madison', 'James Monroe',
         'John Quincy Adams', 'Andrew Jackson', 'Martin Van Buren', 'William H. Harrison', 'John Tyler', 'James K. Polk',
@@ -14,7 +15,17 @@ angular.module('newSpeakApp')
         'Woodrow Wilson', 'Warren G. Harding', 'Calvin Coolidge', 'Herbert Hoover', 'Franklin D. Roosevelt',
         'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon',
         'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
-      ]
+      ],
+
+    save: function(words, president, tempPresident) {
+      this.suggested = words;
+      this.president = president;
+      this.tempPresident = tempPresident;
+    },
+
+    saveWord: function(word) {
+      this.word = word;
+    },
 
   };//end of service object
   

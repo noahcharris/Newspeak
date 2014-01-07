@@ -1,26 +1,17 @@
-<h3>Welcome to the main screen</h3>
-
-{{ greeting }}
-{{suggested}}
-
 <div class='leftColumn'>
 	<form>
-	  <input type="text" placeholder="Type for president" ng-model="president" />
+	  <input type="text" placeholder="Type for president" ng-model="tempPresident" />
 	</form>
 
-	<ul ng-show="president === ''">
-	  <li ng-repeat='pres in presidents'>
-	    <a ng-click="setPres(pres)">{{ pres }}</a>
-	  </li>
+	<ul ng-show="tempPresident === ''">
+	  <li ng-repeat='pres in presidents' ng-click="setPres(pres)">{{ pres }}</li>
 	</ul>
-	<ul ng-show="president !== ''">
-  	<li ng-repeat='pres in presidents | filter: president'>
-    	<a ng-click="setPres(pres)">{{ pres }}</a>
-  	</li>
+	<ul ng-show="tempPresident !== ''">
+  	<li ng-repeat='pres in presidents | filter: tempPresident' ng-click="setPres(pres)">{{ pres }}</li>
 	</ul>
 </div>
 
-<div class='rightColumn main'>
-	<img id="choice" src="../images/choice.png">
+<div class='rightColumn'>
+	<img id="wordPic" src="../images/choice.png">
 	<img id="arrow" src="../images/arrow.png">
 </div>

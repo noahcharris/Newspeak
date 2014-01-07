@@ -1,0 +1,26 @@
+<div class='leftColumn'>
+	<form>
+	  <input type="text" placeholder="Type for president" ng-model="tempPresident" />
+	</form>
+
+	<ul ng-show="tempPresident === ''">
+	  <li ng-repeat='pres in presidents' ng-click="setPres(pres)">
+	    <a href"#/choices">{{ pres }}</a>
+	  </li>
+	</ul>
+	<ul ng-show="tempPresident !== ''">
+  	<li ng-repeat='pres in presidents | filter: tempPresident' ng-click="setPres(pres)">
+    	<a href"#/choices">{{ pres }}</a>
+  	</li>
+	</ul>
+</div>
+
+<div class='rightColumn main' id='postPick'>
+	<h1><strong>TOP WORDS FOR {{ president.toUpperCase() }}</strong></h1>
+	<h2>choose word</h2>
+	<ul>
+		<li ng-repeat='word in suggested' ng-click="sendData(word)">
+	  	<a>{{ word }}</a>
+		</li>
+	</ul>
+</div>

@@ -1,11 +1,13 @@
 angular.module('newSpeakApp')
-.controller('MainController', function ($scope, grabSOTUinfo, transferData) {
-  $scope.test = 'this worked!';
-  $scope.greeting = "Resize the page to see the re-rendering";
+.controller('MainController', function ($scope, $location, grabSOTUinfo, transferData, navBar) {
+  navBar.highlight();
   $scope.presidents = transferData.presidents;
-  $scope.tempPresident = '';
-  $scope.president;
-  $scope.suggested;
+  $scope.tempPresident = transferData.tempPresident;
+  $scope.president = transferData.president;
+  $scope.suggested = transferData.suggested;
+  if ($scope.suggested === null && $location.$$url === '/choices') {
+    $location.url('/');
+  }
   $scope.setPres = function(pres) {
     $scope.president = pres;
     grabSOTUinfo.getTopWords($scope.president)
@@ -13,12 +15,19 @@ angular.module('newSpeakApp')
       return JSON.parse(data);
     })
     .then(function(parsed) {
-      $scope.suggested = parsed;
+      transferData.save(parsed, $scope.president, $scope.tempPresident);
+    }).then(function() {
+      $location.url('choices');
     });
   };
+  $scope.sendData = function(word) {
+    transferData.saveWord(word);
+    $location.url('charts');
+  };
 })
-.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert, transferData) {
-  $scope.hello = function(pres) {
+.controller('collocationAndFrequencyController', function ($scope, grabSOTUinfo, treeConvert, graphConvert, transferData, navBar) {
+  navBar.highlight();
+  $scope.startOver = function(pres) {
     alert(pres);
   };
   $scope.barData = [
@@ -46,9 +55,9 @@ angular.module('newSpeakApp')
         {word: 'putin', size: 1}
       ]
     };
-  $scope.tempPresident = '';
-  $scope.president;
-  $scope.word = '';
+  $scope.tempPresident = transferData.tempPresident;
+  $scope.president = transferData.president;
+  $scope.word = transferData.word;
   var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
   var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
   var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
