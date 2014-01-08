@@ -18,7 +18,7 @@ angular.module('newSpeakApp')
         miniTree.size = 6;
         return miniTree;
       }
-      if (miniTree.isArray()) { return mainTree; }
+      if (Array.isArray(miniTree)) { return mainTree; }
       var recurse = function(miniTree, mainTree, word) {
         for (var i = 0; i < mainTree.children.length; i++) {
           if (mainTree.children[i].children) {
