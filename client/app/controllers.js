@@ -12,10 +12,7 @@ angular.module('newSpeakApp')
     $scope.president = pres;
     grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
-      return JSON.parse(data);
-    })
-    .then(function(parsed) {
-      transferData.save(parsed, $scope.president, $scope.tempPresident);
+      transferData.save(data, $scope.president, $scope.tempPresident);
     }).then(function() {
       $location.url('choices');
     });
@@ -31,10 +28,7 @@ angular.module('newSpeakApp')
     $scope.president = pres;
     grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
-      return JSON.parse(data);
-    })
-    .then(function(parsed) {
-      transferData.save(parsed, $scope.president, $scope.tempPresident);
+      transferData.save(data, $scope.president, $scope.tempPresident);
     }).then(function() {
       $location.url('choices');
     });
