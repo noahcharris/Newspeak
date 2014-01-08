@@ -1,6 +1,8 @@
 # cd textparser
 # node parse.js
 
+from dataFunctions import *
+
 def dataBuilder(stateOfUnionSpeeches):
   presidents = {}
   for SOTU in stateOfUnionSpeeches: # for a given speech object in the speeches array
@@ -11,9 +13,9 @@ def dataBuilder(stateOfUnionSpeeches):
     presidents[president][date] = {} # the date of the current SOTU will be the dictionary object for a given speech's output data
    
    #/////////////PROCESSING INTO DATA \\\\\\\\\\\\\\
-    text = nltk.analyzers.textProcessor(SOTU['speech']) # processing to make it workable
+    text = textProcessor(SOTU['speech']) # processing to make it workable
 
-    wordCountTuples = sorted(nltk.analyzers.mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
+    wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
 
     #////Create word data object for counts and add it to the speech data object \\\
     for i in range(50):
@@ -28,7 +30,7 @@ def dataBuilder(stateOfUnionSpeeches):
     for word in presidents[president][date]: # presidents[president][date] looks like {"barack": {"February 12, 2009": {"word": {"count": 20}}}}
       collocates = {}
       concordList = text.concordance(word) # a list of lines
-      collocateList = nltk.analyzers.mostCommonWords(concordList).most_common(5) # generate an array of tuples, ('collocate', count)
+      collocateList = mostCommonWords(concordList).most_common(5) # generate an array of tuples, ('collocate', count)
       for collocate in collocateList:
         collocates[collocate[0]] = collocate[1]
       presidents[president][date][word]['collocates'] = collocates

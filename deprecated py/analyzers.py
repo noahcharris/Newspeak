@@ -6,7 +6,7 @@ import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import string
-# from text.py import *
+from text.py import *
 
 stopWordList = stopwords.words('english')
 
