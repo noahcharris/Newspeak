@@ -75,7 +75,7 @@ module.exports.frequency = function(request, response) {
 };
 
 module.exports.receiveData = function(request, response) {
-  console.log(JSON.parse(request.body));
+  console.log(request.body);
   response.writeHead(200);
   response.end('Post successful!');
 

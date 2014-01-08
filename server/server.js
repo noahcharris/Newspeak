@@ -29,6 +29,8 @@ app.get('/', function(request, response) {  //this will be different once we're 
 app.get('/collocation', routes.collocation);
 app.get('/frequency', routes.frequency);
 app.get('/words', routes.words);
+
+app.use(express.bodyParser());
 app.post('/data', routes.receiveData);
 
 app.use(express.static(__dirname + '/..'));
