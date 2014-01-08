@@ -6,7 +6,7 @@ var routes = require('./routes.js');
 
 
 app = express();
-app.set('port', 8000);
+app.set('port', 8080);
   
 
 //my own middleware
