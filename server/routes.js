@@ -2,7 +2,7 @@
 var pg = require('pg');
 var url = require('url');
 
-var conString = 'postgres://brandoncooper@localhost:5432/brandoncooper';
+var conString = 'postgres://awsuser:mypassword@mydbinstance.cxod0usrhuqb.us-west-1.rds.amazonaws.com:5432/mydb';
 
 var client = new pg.Client(conString);
 
