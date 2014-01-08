@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-  <title>Newspeak Political Analytics</title>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-</head>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/client/style.css">
+		<link rel="stylesheet" type='text/css' href="/client/lib/animate.css">
+		<link rel="stylesheet" type="text/css" href="/client/lib/nvd3/src/nv.d3.css">
+	  <title>Political Analytics</title>
+	</head>
 
-<body>
+	<body>
+		<nav id="top">
+			<h2><a href="#">
+				<img id="logo" src="/client/images/politician.png">Newspeak
+			</a></h2>
+			<div id="menu">
+				<ul>
+					<li><a href="#/">Home</a></li>
+					<li><a href="#/charts">Charts</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div ng-app='newSpeakApp'>
+				<div ng-view id="views">
+				</div>
+		</div>
 
-YOYOYOYOYO
+		<script src="/client/lib/d3.min.js"></script>
+		<script src="/client/lib/nvd3/nv.d3.js"></script>
+		<script src="/client/lib/nvd3/src/tooltip.js"></script>
+		<script src="/client/lib/nvd3/src/utils.js"></script>
+		<script src="/client/lib/nvd3/src/interactiveLayer.js"></script>
+		<script src="/client/lib/nvd3/src/models/legend.js"></script>
+		<script src="/client/lib/nvd3/src/models/axis.js"></script>
+		<script src="/client/lib/nvd3/src/models/line.js"></script>
+		<script src="/client/lib/nvd3/src/models/lineChart.js"></script>
+		<script src="/client/lib/nvd3/testScript.js"></script>
+	 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.js"></script>
+	 	<script src="http://code.angularjs.org/1.2.5/angular-route.js"></script>
+		<script src="/client/app/routes.js"></script>
+		<script src="/client/app/controllers.js"></script>
+		<script src="/client/app/directives.js"></script>
+		<script src="/client/charts/barChart.js"></script>
+		<script src="/client/charts/collocationChart.js"></script>
+		<script src="/client/charts/frequencyChart.js"></script>
+		<script src="/client/factories/grabSOTUinfo.js"></script>
+		<script src="/client/factories/treeConvert.js"></script>
+		<script src="/client/factories/graphConvert.js"></script>
+		<script src="/client/factories/transferData.js"></script>
+		<script src="/client/factories/navBar.js"></script>
 
-<script src="./main.js"></script>
-
-
-</body>
+	</body>
 </html>

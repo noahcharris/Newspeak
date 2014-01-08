@@ -1,0 +1,17 @@
+<div class='leftColumn'>
+	<form>
+	  <input type="text" placeholder="Type for president" ng-model="tempPresident" />
+	</form>
+
+	<ul ng-show="tempPresident === ''">
+	  <li ng-repeat='pres in presidents' ng-click="setPres(pres)">{{ pres }}</li>
+	</ul>
+	<ul ng-show="tempPresident !== ''">
+  	<li ng-repeat='pres in presidents | filter: tempPresident' ng-click="setPres(pres)">{{ pres }}</li>
+	</ul>
+</div>
+
+<div class='rightColumn'>
+	<img id="wordPic" src="/client/images/choice.png">
+	<img id="arrow" src="/client/images/arrow.png">
+</div>

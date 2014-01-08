@@ -1,0 +1,206 @@
+ body {
+  margin: 0px;
+}
+
+/**** VIEWS ***/
+
+#views {
+  margin: 5px;
+}
+
+/**** Top ***/
+
+#top {
+  width: 100%;
+  color: #fff;
+  background: rgb(255, 26, 26);
+  overflow:hidden;
+}
+
+#top h2 {
+  color: White;
+  letter-spacing: 3px;
+  font-size: 2.4em;
+  font-weight: normal;
+  position: relative;
+  margin: 0px;
+  /*top:33px;*/
+  display:block;
+  float:left;
+  padding-left: 10px;
+}
+
+#top h2 a {
+  color: white;
+  text-decoration: none;
+  position: relative;
+}
+
+#top h2 a:hover {
+  
+}
+
+#logo {
+  top: 5px;
+  position: relative;
+  width: 53px;
+  height: 40px;
+}
+
+
+/**** Main Menu ***/
+
+
+#menu {
+  display: block;
+  float:left;
+  margin-left: 50px
+}
+
+#menu ul {
+  font-size: 13px;
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+
+#menu li {
+  display: block;
+  float: left;
+  white-space: nowrap;
+}
+
+#menu li a {
+  display: block;
+  padding: 20px 20px 19px 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+* html #menu a {width:1%;}
+
+#menu li a:hover {
+  background: rgb(225, 10, 10);
+  color: black;
+}
+
+#menu li a.current {
+  letter-spacing: 1px;
+  color: blue;
+  background: white;
+}
+
+#menu li a.current:hover {
+  color: black;
+}
+
+
+/**** column placement ***/
+
+.leftColumn {
+  float: left;
+  width: 13%;
+}
+
+.rightColumn {
+  width: 87%;
+  float: right;
+}
+
+#colfreq {
+  text-align: center;
+}
+
+#postPick {
+  text-align: center;
+}
+
+/**** main.html ***/
+
+#wordPic {
+  position: relative;
+  left: 200px;
+}
+
+#arrow {
+  position: relative;
+  top: -350px;
+}
+
+/**** choices.html (and colfrequency.html for h1) ***/
+
+h1 {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+#chooseWord {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 37px;
+  margin-top: 10px;
+}
+
+#postPick ul {
+  font-family: fantasy;
+  font-size: 25px;
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+#postPick a:hover {
+  color: rgb(255, 26, 26);
+}
+
+/**** president list styling ***/
+
+.leftColumn ul {
+  list-style-type: none;
+  padding-left: 3px;
+}
+
+.leftColumn li:hover {
+  background: rgb(165, 184, 242);
+}
+
+/**** overall border and placement of charts ***/
+
+#collocationChart {
+  display: inline-block;
+}
+
+#frequencyChart {
+  display: inline-block;
+}
+
+svg {
+  border: 2px solid black;
+  margin: 3px;
+}
+
+
+/**** collocation chart ***/
+
+.node circle {
+  cursor: pointer;
+  stroke: #3182bd;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 12px sans-serif;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+
+/**** frequency chart: SEE nvd3.css ***/
+
