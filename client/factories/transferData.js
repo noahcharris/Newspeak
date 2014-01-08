@@ -17,6 +17,18 @@ angular.module('newSpeakApp')
         'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
       ],
 
+      noSpacePresidents: ['GeorgeWashington', 'JohnAdams', 'ThomasJefferson', 'JamesMadison', 'JamesMonroe',
+        'JohnQuincyAdams', 'AndrewJackson', 'MartinVanBuren', 'WilliamHHarrison', 'JohnTyler', 'JamesKPolk',
+        'ZacharyTaylor', 'MillardFillmore', 'FranklinPierce', 'JamesBuchanan', 'AbrahamLincoln', 'AndrewJohnson',
+        'UlyssesSGrant', 'RutherfordBHayes', 'JamesAGarfield', 'ChesterAArthur', 'GroverCleveland',
+        'BenjaminHarrison', 'WilliamMcKinley', 'TheodoreRoosevelt', 'WilliamHTaft',
+        'WoodrowWilson', 'WarrenGHarding', 'CalvinCoolidge', 'HerbertHoover', 'FranklinDRoosevelt',
+        'HarrySTruman', 'DwightDEisenhower', 'JohnFKennedy', 'LyndonBJohnson', 'RichardMNixon',
+        'GeraldRFord', 'JimmyCarter', 'RonaldReagan','GeorgeHWBush', 'BillClinton', 'GeorgeWBush', 'BarackObama'
+      ],
+
+
+
     save: function(words, president, tempPresident) {
       this.suggested = words;
       this.president = president;
