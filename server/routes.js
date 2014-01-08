@@ -23,8 +23,22 @@ var client = new pg.Client(conString);
 
 client.connect();
 
+module.exports.words = function(request, response) {
+  var queryArgs = url.parse(request.url, true).query;
+  client.query("SELECT word FROM " + queryArgs.president + ";", function(err, result) {
+    if(err) {
+      return console.error('error running query', err);
+    }
+    var temp = [];
+    for (var i=0;i<result.rows.length;i++) {
+      temp.push(result.rows[i].word);
+    }
+    response.json(temp);
+  });
+};
+
 module.exports.collocation = function(request, response) {
-  var queryArgs = url.parse(request.url, true).query;      //include true as second argument to parse query string
+  var queryArgs = url.parse(request.url, true).query;
   console.log(queryArgs);
 
   client.query("SELECT * FROM " + queryArgs.president + " WHERE word = '" + queryArgs.word + "';", function(err, result) {
@@ -50,6 +64,9 @@ module.exports.frequency = function(request, response) {
 };
 
 module.exports.receiveData = function(request, response) {
+  console.log(JSON.parse(request.body));
+  response.writeHead(200);
+  response.end('Post successful!');
 
 };
 
@@ -80,6 +97,6 @@ CREATE TABLE Obama (
   year8   integer
 );
 
-INSERT INTO Obama (word, collo1, collo2, collo3, collo4, collo5, year1, year2, year3, year4, year5, year6, year7, year8) VALUES ('Democracy','Liberty','Happiness','Superfluity','Security','Rapacity',21,84,32,1,2,24,75,32);
+INSERT INTO Obama (word, collo1, collo2, collo3, collo4, collo5, year1, year2, year3, year4, year5, year6, year7, year8) VALUES ('High','Liberty','Happiness','Superfluity','Security','Rapacity',21,84,32,1,2,24,75,32);
 
 */
