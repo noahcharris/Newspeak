@@ -10,7 +10,7 @@ angular.module('newSpeakApp')
   }
   $scope.setPres = function(pres) {
     $scope.president = pres;
-    grabSOTUinfo.getTopWords($scope.president)
+    grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
       return JSON.parse(data);
     })
@@ -29,14 +29,13 @@ angular.module('newSpeakApp')
   navBar.highlight();
   $scope.startOver = function(pres) {
     $scope.president = pres;
-    grabSOTUinfo.getTopWords($scope.president)
+    grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
       return JSON.parse(data);
     })
     .then(function(parsed) {
       transferData.save(parsed, $scope.president, $scope.tempPresident);
     }).then(function() {
-      debugger;
       $location.url('choices');
     });
   };
@@ -69,7 +68,6 @@ angular.module('newSpeakApp')
   $scope.tempPresident = transferData.tempPresident;
   $scope.president = transferData.president;
   $scope.word = transferData.word;
-  $scope.getSotus = ($scope.word);
   var series1 = [{x:1, y: 400}, {x:2, y: 30}, {x:3, y: 905}, {x:4, y: 150}];
   var series2 = [{x:1, y: 800}, {x:2, y: 300}, {x:3, y: 95}, {x:4, y: 550}];
   var series3 = [{x:1, y: 100}, {x:2, y: 320}, {x:3, y: 50}, {x:4, y: 550}];
@@ -77,7 +75,7 @@ angular.module('newSpeakApp')
   $scope.presidents = transferData.presidents;
   
   $scope.getSotus = function(word, mainTree) {
-    grabSOTUinfo.collocation($scope.president, word)
+    grabSOTUinfo.collocation(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)], word)
     .then(function(data) {
       return JSON.parse(data);
     })
