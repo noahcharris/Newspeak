@@ -13,8 +13,6 @@ angular.module('newSpeakApp')
       }).error(function(reason) {
         d.reject(reason);
       });
-      // WHEN SERVER WORKS DELETE BELOW
-      // d.resolve('["republican", "elephant","chris christie", "bush", "conservative", "small government"]');
       return d.promise;
     },
 
@@ -29,8 +27,6 @@ angular.module('newSpeakApp')
       }).error(function(reason) {
         d.reject(reason);
       });
-      // WHEN SERVER WORKS DELETE BELOW
-      // d.resolve('["new word", 350, 300, 605, 500, 800, 900, 200, 1100]');
       return d.promise;
     },
 
@@ -46,7 +42,7 @@ angular.module('newSpeakApp')
         d.reject(reason);
       });
       // WHEN SERVER WORKS DELETE BELOW
-      // d.resolve('["recession", "whitehouse", "fish", "running", "out", "of", "ideas", "health", "care", "healthcare"]');
+      // d.resolve('["High", "whitehouse", "fish", "running", "out", "of", "ideas", "health", "care", "healthcare"]');
       return d.promise;
     }
 
