@@ -3,6 +3,7 @@ angular.module('newSpeakApp')
 
   var service = {
     arrayToObject: function(array) {
+      if (array.length === 0) { return array; }
       var miniTree = {};
       miniTree.word = array[0];
       miniTree.children = [];
@@ -17,6 +18,7 @@ angular.module('newSpeakApp')
         miniTree.size = 6;
         return miniTree;
       }
+      if (Array.isArray(miniTree)) { return mainTree; }
       var recurse = function(miniTree, mainTree, word) {
         for (var i = 0; i < mainTree.children.length; i++) {
           if (mainTree.children[i].children) {

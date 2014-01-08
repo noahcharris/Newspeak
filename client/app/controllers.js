@@ -52,7 +52,11 @@ angular.module('newSpeakApp')
 
     grabSOTUinfo.frequency(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)], word)
     .then(function(data) {
-      $scope.freqData = graphConvert.addToGraphData(data, $scope.freqData);
+      if (data.length === 0) {
+        $scope.freqData = $scope.freqData;
+      } else {
+        $scope.freqData = graphConvert.addToGraphData(data, $scope.freqData);
+      }
       $scope.barData = graphConvert.addToBarData($scope.freqData);
     });//end of grabSOTUinfo.frequency
   }; //end of $scope.getSotus
