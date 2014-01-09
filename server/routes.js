@@ -92,6 +92,7 @@ module.exports.receiveData = function(request, response) {
       +"year13   integer"
       +");");
   }
+  
 
 
 //######################################################  
@@ -194,23 +195,47 @@ for (var pres in presidentObject) {
 }
 
 console.log(presidents);
+console.log('\n\n\n\n\n\n\n\n\n\n');
+
+//#########################################################
 
 
+for (var president in presidents) {
 
-
-
-
-
-
-/*  THIS IS FOR DYNAMIC INSERTS WITH DIFFERENT YEARS
   var yearString = '';
-  for (var i=1;i<years.length+1;i++) {
+  for (var i=1;i<presidents[president][0].length-5;i++) {
     yearString += ', ';
     yearString += 'year'+i;
   }
 
+  console.log('YEARSTRING', yearString);
+  
 
-*/
+  for (var i=0;i<presidents[president].length;i++) {
+
+    var valueString = "'"+presidents[president][i][0]+"'"
+    for (var j=0;j<presidents[president][i].length;j++) {
+      valueString += ', ';
+      if (typeof(presidents[president][i][j]) === 'string') {
+        valueString += "'"+presidents[president][i][j]+"'";
+      } else {
+        valueString += presidents[president][i][j];
+      }
+    }
+
+    console.log('VALUESTRING', valueString);
+
+
+    client.query("INSERT INTO "+president+" "
+      +"(word, collo1, collo2, collo3, collo4, collo5"+yearString+") "
+      +"VALUES ("+valueString+");");
+
+  }
+    
+}
+
+
+
 
   response.writeHead(200);
   response.end('Post successful!');
