@@ -9,6 +9,7 @@ def dataBuilder(stateOfUnionSpeeches):
   for SOTU in stateOfUnionSpeeches: # for a given speech object in the speeches array
     president = SOTU['president']
     president = president.replace(" ", "") # 'Barack Obama'
+    president = president.replace(".", "") # 'HarrySTruman'
     print(president)
     if president not in presidents: # check to see if 'Barack Obama' is a key of the presidents dictionary
       presidents[president] = {} # if not, add it
@@ -17,7 +18,7 @@ def dataBuilder(stateOfUnionSpeeches):
    
    #///////////// PROCESSING INTO DATA \\\\\\\\\\\\\\
     text = textProcessor(SOTU['speech']) # processing to make it workable
-
+    # text = text.encode('ascii', 'ignore')
     wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
 
     #//// Create word data object for counts and add it to the speech data object \\\
