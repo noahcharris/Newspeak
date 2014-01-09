@@ -11,7 +11,7 @@ angular.module('newSpeakApp')
         
         var svg = d3.select(element[0])
         	.append('svg')
-          .attr('class', 'barChart')
+          .attr('class', 'barSVG')
         	.style('width', '98%');
 
         	 // Browser onresize event
