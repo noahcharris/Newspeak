@@ -53,7 +53,7 @@ angular.module('newSpeakApp')
 		        .axisLabel('Year in Office');
 
 		    chart.yAxis
-		        .axisLabel('Frequency')
+		        .axisLabel('Word Count')
 		        .tickFormat(d3.format(',2f'));
 
 
