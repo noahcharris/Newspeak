@@ -25,7 +25,7 @@ var getSpeechDate = function(title) {
 	// console.log(stateOfUnionSpeeches[counter].date);
 
 	counter++;
-	if (counter < 5) { // webaddress.length gives the entire set of speeches
+	if (counter < webAddress.length) { // webaddress.length gives the entire set of speeches
 		runHTTP(webAddress[counter], parseSpeech);
 	} else {
 		outputData = JSON.stringify(stateOfUnionSpeeches);
@@ -87,7 +87,7 @@ var runHTTP = function(path, cb) {
 				cb(data);
 			});
 	}).on('error', function(e) {
-		console.log("Error: " + options.host + "\n" + e.message);
+		// console.log("Error: " + options.host + "\n" + e.message);
 		console.log( e.stack );
 	});
 };

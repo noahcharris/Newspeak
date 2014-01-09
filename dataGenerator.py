@@ -22,7 +22,7 @@ def dataBuilder(stateOfUnionSpeeches):
     wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
 
     #//// Create word data object for counts and add it to the speech data object \\\
-    for i in range(5):
+    for i in range(30):
       wordData = {'count': wordCountTuples[i][1]} # wordCountTuples[i] is a tuple that looks like ("word": 20)
       presidents[president][date][wordCountTuples[i][0]] = wordData
     # results in an object like {'word1': {'count': 20},                         
@@ -33,7 +33,10 @@ def dataBuilder(stateOfUnionSpeeches):
       collocates = {}
       concordList = text.concordance(word) # a list of lines
       collocateList = mostCommonWords(concordList).most_common(6) # generate an array of tuples, ('collocate', count)
-      collocateList.pop(0)
+      # print collocateList
+      collocateList = [w for w in collocateList if w[0] != word]
+      print collocateList
+
       for collocate in collocateList:
         collocates[collocate[0]] = collocate[1]
       presidents[president][date][word]['collocates'] = collocates
@@ -42,7 +45,7 @@ def dataBuilder(stateOfUnionSpeeches):
   # iterate through the common word list earlier, to get concordance-lists, then iterate through the list of word objects, look up the counts in the original counter object, and add that as a property. 
 
   # send(presidents) to database;
-  print presidents
+  # print presidents
   return presidents
 
 
