@@ -214,7 +214,7 @@ for (var president in presidents) {
   for (var i=0;i<presidents[president].length;i++) {
 
     var valueString = "'"+presidents[president][i][0]+"'"
-    for (var j=0;j<presidents[president][i].length;j++) {
+    for (var j=1;j<presidents[president][i].length;j++) {
       valueString += ', ';
       if (typeof(presidents[president][i][j]) === 'string') {
         valueString += "'"+presidents[president][i][j]+"'";
