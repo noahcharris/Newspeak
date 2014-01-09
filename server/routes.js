@@ -89,7 +89,7 @@ module.exports.receiveData = function(request, response) {
       +"year10   integer,"
       +"year11   integer,"
       +"year12   integer,"
-      +"year13   integer,"
+      +"year13   integer"
       +");");
   }
 
