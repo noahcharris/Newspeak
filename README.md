@@ -3,6 +3,7 @@
 Political Documents Analytics
 
 ### Description ###
+---
 
 [barackolli?](ec2-54-193-23-12.us-west-1.compute.amazonaws.com)
 
@@ -14,6 +15,7 @@ Analyze words that presidents have said in their State of the Union speeches. Se
 
 
 ### Extra ###
+---
 
 _While not required to deliver a speech, every president since Woodrow Wilson has made at least one State of the Union report as a speech delivered before a joint session of Congress. Before that time, most presidents delivered the State of the Union as a written report_
 
