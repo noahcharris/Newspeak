@@ -92,6 +92,15 @@ module.exports.receiveData = function(request, response) {
       +"year13   integer"
       +");");
   }
+/*  THIS IS FOR DYNAMIC INSERTS WITH DIFFERENT YEARS
+  var yearString = '';
+  for (var i=1;i<years.length+1;i++) {
+    yearString += ', ';
+    yearString += 'year'+i;
+  }
+
+
+*/
 
   response.writeHead(200);
   response.end('Post successful!');
