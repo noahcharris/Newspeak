@@ -30,7 +30,7 @@ angular.module('newSpeakApp')
 
 
     save: function(words, president, tempPresident) {
-      this.suggested = words.slice(0,45);
+      this.suggested = words.slice(0,60);
       this.president = president;
       this.tempPresident = tempPresident;
     },
