@@ -16,9 +16,9 @@ Analyze words that presidents have said in their State of the Union speeches. Se
 ### Tech Stack and Responsibilities ###
 ---
 
-__Language-Processing:__ Jackson Clowes
-__Front-end:__ Brandon Cooper
-__Back-end:__ Noah Harris
+__Language-Processing:__ Jackson Clowes  
+__Front-End:__ Brandon Cooper  
+__Back-End:__ Noah Harris  
 
 * Python
 * NLTK
