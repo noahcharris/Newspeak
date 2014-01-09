@@ -6,21 +6,6 @@ var conString = 'postgres://awsuser:mypassword@mydbinstance.cxod0usrhuqb.us-west
 
 var client = new pg.Client(conString);
 
-
-// client.connect(function(err) {     //this was interfering with my code down there???
-//   if(err) {
-//     return console.error('could not connect to postgres', err);
-//   }
-//   client.query('SELECT NOW() AS "theTime"', function(err, result) {
-//     if(err) {
-//       return console.error('error running query', err);
-//     }
-//     console.log(result.rows[0].theTime);
-//     //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-//     client.end();
-//   });
-// });
-
 client.connect();
 
 module.exports.words = function(request, response) {
@@ -106,16 +91,6 @@ module.exports.receiveData = function(request, response) {
       +"year12   integer,"
       +"year13   integer,"
       +");");
-  }
-  for (var president in data) {
-    for (var year in data[president]) {
-      for (var word in data[president][year]) {
-
-        for (var collocate in data[president][year][word]) {
-
-        }
-      }
-    }
   }
 
   response.writeHead(200);
