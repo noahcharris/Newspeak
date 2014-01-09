@@ -17,10 +17,16 @@
 
 <div class='rightColumn main' id='postPick'>
 	<h1><strong>TOP WORDS FOR {{ president.toUpperCase() }}</strong></h1>
-	<h2 id="chooseWord">choose word</h2>
-	<ul>
-		<li ng-repeat='word in suggested'>
-	  	<a ng-click="sendData(word)">{{ word }}</a>
-		</li>
-	</ul>
+	<div ng-show="president !== 'James A. Garfield' && president !== 'William H. Harrison'">
+		<h2 id="chooseWord">choose word</h2>
+		<ul>
+			<li ng-repeat='word in suggested'>
+		  	<a ng-click="sendData(word)">{{ word }}</a>
+			</li>
+		</ul>
+	</div>
+
+	<div ng-show="president === 'James A. Garfield' || president === 'William H. Harrison'">
+		<h2 id="chooseWord">{{ president }} gave no State of the Union Speeches <br/> Select new president</h2>
+	</div>
 </div>

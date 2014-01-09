@@ -156,6 +156,15 @@ h1 {
   font-size: 25px;
   list-style-type: none;
   padding-left: 0px;
+  /*float: left;*/
+  width: 100%
+}
+
+#postPick ul li {
+  float: left;
+  width: 33%;
+  margin: 0;
+  padding: 0;
 }
 
 #postPick a:hover {
