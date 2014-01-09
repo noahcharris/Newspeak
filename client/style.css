@@ -128,7 +128,7 @@
   top: -350px;
 }
 
-/**** choices.html (and colfrequency.html for h1) ***/
+/**** choices.html (and colfrequency.html for h1 & h2) ***/
 
 h1 {
   font-family: fantasy;
@@ -138,6 +138,13 @@ h1 {
 }
 
 #chooseWord {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 37px;
+  margin-top: 10px;
+}
+
+#total {
   font-family: fantasy;
   color: rgb(12,79,249);
   font-size: 37px;
