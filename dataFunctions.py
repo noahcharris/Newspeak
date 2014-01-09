@@ -12,7 +12,7 @@ stopWordList = stopwords.words('english')
 
 def textProcessor(text):
   # raw = '"""' +  text + '"""'
-  raw = text.translate(None, string.punctuation) #removes all punctuation from the raw tex
+  raw = text.translate(None, string.punctuation) #removes all punctuation from the raw text
   raw = raw.lower() # sets every char to lowercase
   tokens = nltk.word_tokenize(raw) #create a list of words in the text
   text = nltk.Text(tokens) #create a Text object from the tokens list
@@ -24,7 +24,7 @@ def mostCommonWords(concordanceList):
   for line in concordanceList:
     words = [w for w in line.split() if w not in stopWordList]
     finalCount.update(words)
-  print finalCount
+  # print finalCount
   return finalCount
 
 def concordanceCounter(word, text):
@@ -38,7 +38,8 @@ def mostCommonConcordancer(text):
     commonWordObject[w[0]] = concordanceCounter(w[0], text)
   return commonWordObject
 
-def generate_concordance(self, word, width=75, lines=25):
+# Code Cleanup: copy over the necessary parts of the nltk text.py function (concordance, generate_concordance) so that it can run from a fresh install
+def generate_concordance(self, word, width=75, lines=50):
         """
         Print a concordance for ``word`` with the specified context window.
 
@@ -56,7 +57,7 @@ def generate_concordance(self, word, width=75, lines=25):
         if offsets:
             concordList = []
             lines = min(lines, len(offsets))
-            print("Displaying %s of %s matches:" % (lines, len(offsets)))
+            # print("Displaying %s of %s matches:" % (lines, len(offsets)))
             for i in offsets:
                 if lines <= 0:
                     break
@@ -72,7 +73,5 @@ def generate_concordance(self, word, width=75, lines=25):
             # print items from list to verify that this method works. 
         else:
             print("No matches")
-        # for item in concordList:
-        #     print("you buttface: " + item)
         return concordList
 

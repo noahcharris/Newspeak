@@ -21,13 +21,16 @@ var getIndicesOf = function (searchStr, str, caseSensitive) {
 var getSpeechDate = function(title) {
 	var startOfDate = getIndicesOf(' - ', title, false)[0] + 3;
 	// console.log('the index start Date is ' + startOfDate);
-	stateOfUnionSpeeches[counter].date = title.slice(startOfDate);
+	stateOfUnionSpeeches[counter].date = title.slice(startOfDate).slice(-4);
+	// console.log(stateOfUnionSpeeches[counter].date);
 
 	counter++;
 	if (counter < 5) { // webaddress.length gives the entire set of speeches
 		runHTTP(webAddress[counter], parseSpeech);
 	} else {
-		return stateOfUnionSpeeches;
+		outputData = JSON.stringify(stateOfUnionSpeeches);
+		console.log(outputData);
+		return outputData;
 	}
 };
 
@@ -84,7 +87,7 @@ var runHTTP = function(path, cb) {
 				cb(data);
 			});
 	}).on('error', function(e) {
-		console.log("Error: " + options.host + "\n" + e.message); 
+		console.log("Error: " + options.host + "\n" + e.message);
 		console.log( e.stack );
 	});
 };
