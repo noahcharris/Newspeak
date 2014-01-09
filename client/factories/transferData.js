@@ -24,7 +24,7 @@ angular.module('newSpeakApp')
         'BenjaminHarrison', 'WilliamMcKinley', 'TheodoreRoosevelt', 'WilliamHTaft',
         'WoodrowWilson', 'WarrenGHarding', 'CalvinCoolidge', 'HerbertHoover', 'FranklinDRoosevelt',
         'HarrySTruman', 'DwightDEisenhower', 'JohnFKennedy', 'LyndonBJohnson', 'RichardMNixon',
-        'GeraldRFord', 'JimmyCarter', 'RonaldReagan','GeorgeHWBush', 'BillClinton', 'GeorgeWBush', 'BarackObama'
+        'GeraldRFord', 'JimmyCarter', 'RonaldReagan','GeorgeBush', 'WilliamJClinton', 'GeorgeWBush', 'BarackObama'
       ],
 
 

@@ -4,13 +4,13 @@
 	</form>
 
 	<ul ng-show="tempPresident === ''">
-	  <li ng-repeat='pres in presidents' ng-click="setPres(pres)">
-	    <a href"#/choices">{{ pres }}</a>
+	  <li ng-repeat='pres in presidents'>
+	    <a ng-click="setPres(pres)">{{ pres }}</a>
 	  </li>
 	</ul>
 	<ul ng-show="tempPresident !== ''">
-  	<li ng-repeat='pres in presidents | filter: tempPresident' ng-click="setPres(pres)">
-    	<a href"#/choices">{{ pres }}</a>
+  	<li ng-repeat='pres in presidents | filter: tempPresident'>
+    	<a ng-click="setPres(pres)">{{ pres }}</a>
   	</li>
 	</ul>
 </div>

@@ -13,6 +13,7 @@ angular.module('newSpeakApp')
     grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
       transferData.save(data, $scope.president, $scope.tempPresident);
+      $scope.suggested = transferData.suggested;
     }).then(function() {
       $location.url('choices');
     });
@@ -55,6 +56,12 @@ angular.module('newSpeakApp')
       if (data.length === 0) {
         $scope.freqData = $scope.freqData;
       } else {
+        for (var d = 0; d < data.length; d++) {
+          if (data[d] === null) {
+            data = data.slice(0, d);
+            break;
+          }
+        }
         $scope.freqData = graphConvert.addToGraphData(data, $scope.freqData);
       }
       $scope.barData = graphConvert.addToBarData($scope.freqData);
