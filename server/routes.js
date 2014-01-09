@@ -11,14 +11,15 @@ client.connect();
 module.exports.words = function(request, response) {
   var queryArgs = url.parse(request.url, true).query;
   client.query("SELECT word FROM " + queryArgs.president + ";", function(err, result) {
-    if(err) {
-      return console.error('error running query', err);
-    }
     var temp = [];
-    for (var i=0;i<result.rows.length;i++) {
-      temp.push(result.rows[i].word);
+    if (result === undefined) {
+      response.json([]);
+    } else {
+      for (var i=0;i<result.rows.length;i++) {
+        temp.push(result.rows[i].word);
+      }
+      response.json(temp);
     }
-    response.json(temp);
   });
 };
 
