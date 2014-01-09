@@ -69,16 +69,57 @@ module.exports.frequency = function(request, response) {
       response.json([]);
       response.end();
     } else {
-    response.json([row.word, row.year1, row.year2, row.year3, row.year4]); //need to make this dynamic depending on how much data is returned
+      var temp = [row.word];
+      for (var i=1;i<14;i++) {
+        if (row['year'+i] !== undefined)
+          temp.push(row['year'+i]);
+      }
+      response.json(temp);
     }
   });
 };
 
+//the only security we have right now is through obfuscation..
 module.exports.receiveData = function(request, response) {
   console.log(request.body);
+  var data = request.body;
+  for (var president in data) {
+    client.query("CREATE TABLE "+president+" ("
+      +"id      SERIAL PRIMARY KEY,"
+      +"word    varchar(25),"
+      +"collo1  varchar(25),"
+      +"collo2  varchar(25),"
+      +"collo3  varchar(25),"
+      +"collo4  varchar(25),"
+      +"collo5  varchar(25),"
+      +"year1   integer,"
+      +"year2   integer,"
+      +"year3   integer,"
+      +"year4   integer,"
+      +"year5   integer,"
+      +"year6   integer,"
+      +"year7   integer,"
+      +"year8   integer,"
+      +"year9   integer,"
+      +"year10   integer,"
+      +"year11   integer,"
+      +"year12   integer,"
+      +"year13   integer,"
+      +");");
+  }
+  for (var president in data) {
+    for (var year in data[president]) {
+      for (var word in data[president][year]) {
+
+        for (var collocate in data[president][year][word]) {
+
+        }
+      }
+    }
+  }
+
   response.writeHead(200);
   response.end('Post successful!');
-
 };
 
 
@@ -105,7 +146,12 @@ CREATE TABLE Obama (
   year5   integer,
   year6   integer,
   year7   integer,
-  year8   integer
+  year8   integer,
+  year9   integer,
+  year10   integer,
+  year11   integer,
+  year12   integer,
+  year13   integer
 );
 
 INSERT INTO Obama (word, collo1, collo2, collo3, collo4, collo5, year1, year2, year3, year4, year5, year6, year7, year8) VALUES ('High','Liberty','Happiness','Superfluity','Security','Rapacity',21,84,32,1,2,24,75,32);

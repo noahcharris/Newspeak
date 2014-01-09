@@ -13,6 +13,7 @@ app.use(function(request, response, next) {
   console.log('received '+request.method+' request at '+request.url);
   next();
 });
+
 app.use(express.bodyParser());
 
 //this is nice for viewing errors!
@@ -23,7 +24,7 @@ app.use(express.bodyParser());
 
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 
-app.get('/', function(request, response) {  //this will be different once we're using nginx
+app.get('/', function(request, response) {
   response.redirect('/client/index.html');
 });
 
