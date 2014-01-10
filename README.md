@@ -4,7 +4,7 @@ Political Documents Analytics
 
 ### Description ###
 
-[barackolli?](ec2-54-193-23-12.us-west-1.compute.amazonaws.com)
+[barackolli?](http://ec2-54-193-23-12.us-west-1.compute.amazonaws.com)
 
 Analyze words that presidents have said in their State of the Union speeches. Select a president, choose a word, and evaluate results.
 
