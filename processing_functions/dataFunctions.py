@@ -14,7 +14,6 @@ stopSet.update(['w', 'legislat', 'sed', 'ts', 'thats', 'l', 'th', 'e', 'iapplaus
 stopSet.update(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
 
 
-# print stopSet
 
 def textProcessor(text):
   text = text.encode('ascii', 'ignore')
@@ -28,11 +27,9 @@ def textProcessor(text):
 def mostCommonWords(concordanceList):
   finalCount = Counter()
   for line in concordanceList:
-    # print line
-    # print line.split()
+
     words = [w for w in line.split() if w not in stopSet and len(w) > 2]
     finalCount.update(words)
-  # print finalCount
   return finalCount
 
 def concordanceCounter(word, text):

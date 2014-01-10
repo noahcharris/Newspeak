@@ -22,6 +22,7 @@ data = sys.stdin.read()
 # outputData = jsonData.encode('utf-8')
 
 def postData(data):
+  # print data
   headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
   # url = 'ec2-54-193-23-12.us-west-1.compute.amazonaws.com/data'
   r = requests.post('http://ec2-54-193-23-12.us-west-1.compute.amazonaws.com/data', data, headers=headers)
@@ -35,7 +36,6 @@ for entry in uniData:
   sendPres = {}
   sendPres[entry] = uniData[entry]
   sendableData = json.dumps(sendPres)
-  # print sendableData
   postData(sendableData)
 
 

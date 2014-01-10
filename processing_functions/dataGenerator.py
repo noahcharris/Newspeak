@@ -1,67 +1,90 @@
 # cd textparser
 # node parse.js
 
+
 from dataFunctions import *
 
 
 def dataBuilder(stateOfUnionSpeeches):
   presidents = {}
+  speeches = {}
   for SOTU in stateOfUnionSpeeches: # for a given speech object in the speeches array
     president = SOTU['president']
     president = president.replace(" ", "") # 'Barack Obama'
     president = president.replace(".", "") # 'HarrySTruman'
-    # print(president)
     if president not in presidents: # check to see if 'Barack Obama' is a key of the presidents dictionary
       presidents[president] = {} # if not, add it
-    date = SOTU['date']
-    presidents[president][date] = {} # the date of the current SOTU will be the dictionary object for a given speech's output data
-    presidents[president][date]['trackList'] = []
+    tempDate = SOTU['date']
+    presidents[president][tempDate] = []
+      # the date of the current SOTU will be the dictionary object for a given speech's output data
+ 
    #///////////// PROCESSING INTO DATA \\\\\\\\\\\\\\
     text = textProcessor(SOTU['speech']) # processing to make it workable
-    # edit text to remove 'mdash'
     # text = text.encode('ascii', 'ignore')
-    commonWordsList = mostCommonWords(text)
+    speeches[tempDate] = text
     wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
-    print wordCountTuples
 
-    #//// Create word data object for counts and add it to the speech data object \\\
-    for i in range(50):
-      wordData = {'count': wordCountTuples[i][1]} # wordCountTuples[i] is a tuple that looks like ("word": 20)
-      presidents[president][date][wordCountTuples[i][0]] = wordData #'obama': {'2009': {'free': 2}}
-      # print presidents[president]['trackList']
-      # print wordCountTuples[i][0]
-      checkWord = wordCountTuples[i][0]
-      presidents[president][date]['trackList'].append(checkWord)
-      # print presidents[president][date]['trackList'] # add top 50 words to trackList
-    # print presidents[president]['trackList']
-    for year in presidents[president]:
-      # print year
-      # print presidents[president][year]['trackList']
-      for w in presidents[president][year]['trackList']: # should loop through trackList, get count data, add to 
-        wordData = {'count': commonWordsList[w]}
-        # print commonWordsList[w]
-        # print wordData
-        # print presidents[president]['trackList']
-        # print w
-        # print wordData
-        if w[0] not in presidents[president][date] and type(w[1]) == int:
-          presidents[president][date][w] = wordData
-          # print presidents[president][date][w]                     
+    presidents[president][tempDate] = wordCountTuples
 
-    #/// Create collocation data for a given word \\\
-    for word in presidents[president][date]: # presidents[president][date] looks like {"barack": {"February 12, 2009": {"word": {"count": 20}}}}
-      collocates = {}
-      concordList = text.concordance(word) # a list of lines
-      collocateList = mostCommonWords(concordList).most_common(6) # generate an array of tuples, ('collocate', count)
-      collocateList = [w for w in collocateList if w[0] != word]
+  for pres in presidents:
+    dateArray = []
+    for year in presidents[pres]:
+      dateTuple = [year, presidents[pres][year]]
+      dateArray.append(dateTuple)
+    dateArray = sorted(dateArray, key=lambda sorter: sorter[0], reverse=False)
 
-      for collocate in collocateList: # build the list of collocates for a given
-        # collocate[0].decode('utf-8')
-        # collocate[0].replace('mdash', ' ')
-        collocates[collocate[0]] = collocate[1]
-        # print collocates
-      # print type(presidents[president][date][word])
-      # print (presidents[president][date][word])
+    presidents[pres]['termList'] = []
+
+    for year in dateArray:
+      wordTuples = year[1]
+      #//// Create word data object for counts and add it to the speech data object \\\
+      for i in range(50):
+        if wordTuples[i][0] not in presidents[pres]['termList']:
+          presidents[pres]['termList'].append(wordTuples[i][0])
+      # results in an object like {'word1': {'count': 20},    
+
+
+    for year in dateArray:
+      wordTuples = year[1]
+      dataObj = {}
+
+      tupleArrayIndex = []
+      for c in wordTuples:
+        tupleArrayIndex.append(c[0])
+
+      num = len(presidents[pres]['termList'])
+      for c in range(num):
+        try:
+          tempWord = presidents[pres]['termList'][c]
+          idx = tupleArrayIndex.index(tempWord)
+          wordData = {'count': wordTuples[idx][1]}
+          dataObj[tempWord] = wordData
+        except ValueError:
+          x = 0
+          # print pres + ' ' +  presidents[pres]['termList'][c] + ' not in speech'
+
+      # /// Create collocation data for a given word \\\
+      for word in dataObj: # presidents[president][date] looks like {"barack": {"February 12, 2009": {"word": {"count": 20}}}}
+        collocates = {}
+        concordList = speeches[year[0]].concordance(word)
+
+        # if len(concordList) == 0:
+          # print word
+          # print dataObj[word] # a list of lines
+          # print concordList
+        collocateList = mostCommonWords(concordList).most_common(6) # generate an array of tuples, ('collocate', count)
+        collocateList = [w for w in collocateList if w[0] != word]    
+        for collocate in collocateList:
+          collocates[collocate[0]] = collocate[1]
+        dataObj[word]['collocates'] = collocates
+    
+      presidents[pres][year[0]] = dataObj
+
+    del presidents[pres]['termList']
+    
+
+ # generate an array of tuples, ('collocate', count)
+
 
       # presidents[president][date][word]['collocates'] = collocates
 
@@ -70,7 +93,6 @@ def dataBuilder(stateOfUnionSpeeches):
       # for collocate in collocateList:
       #   if collocate[1] > 1:
       #     collocates[collocate[0]] = collocate[1]
-  # print presidents
   return presidents
 
 

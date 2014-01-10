@@ -26,7 +26,7 @@ var getSpeechDate = function(title) {
 	// console.log(stateOfUnionSpeeches[counter].date);
 
 	counter++;
-	if (counter < 5) { // webaddress.length gives the entire set of speeches
+	if (counter < webAddress.length) { // webaddress.length gives the entire set of speeches
 		runHTTP(webAddress[counter], parseSpeech);
 	} else {
 		outputData = JSON.stringify(stateOfUnionSpeeches);
