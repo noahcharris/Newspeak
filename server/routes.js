@@ -192,8 +192,8 @@ for (var pres in presidentObject) {
   }
 }
 
-console.log(presidents);
-console.log('\n\n\n\n\n\n\n\n\n\n');
+//console.log(presidents);
+//console.log('\n\n\n\n\n\n\n\n\n\n');
 
 //#########################################################
 
@@ -233,9 +233,6 @@ for (var president in presidents) {
   }
     
 }
-
-
-
 
   response.writeHead(200);
   response.end('Post successful!');
