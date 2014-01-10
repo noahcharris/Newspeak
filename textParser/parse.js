@@ -21,9 +21,7 @@ var getIndicesOf = function (searchStr, str, caseSensitive) {
 
 var getSpeechDate = function(title) {
 	var startOfDate = getIndicesOf(' - ', title, false)[0] + 3;
-	// console.log('the index start Date is ' + startOfDate);
 	stateOfUnionSpeeches[counter].date = title.slice(startOfDate).slice(-4);
-	// console.log(stateOfUnionSpeeches[counter].date);
 
 	counter++;
 	if (counter < webAddress.length) { // webaddress.length gives the entire set of speeches
