@@ -22,6 +22,7 @@ def dataBuilder(stateOfUnionSpeeches):
     # text = text.encode('ascii', 'ignore')
     commonWordsList = mostCommonWords(text)
     wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
+    print wordCountTuples
 
     #//// Create word data object for counts and add it to the speech data object \\\
     for i in range(50):
@@ -33,8 +34,9 @@ def dataBuilder(stateOfUnionSpeeches):
       presidents[president][date]['trackList'].append(checkWord)
       # print presidents[president][date]['trackList'] # add top 50 words to trackList
     # print presidents[president]['trackList']
-
     for year in presidents[president]:
+      # print year
+      # print presidents[president][year]['trackList']
       for w in presidents[president][year]['trackList']: # should loop through trackList, get count data, add to 
         wordData = {'count': commonWordsList[w]}
         # print commonWordsList[w]
@@ -43,7 +45,8 @@ def dataBuilder(stateOfUnionSpeeches):
         # print w
         # print wordData
         if w[0] not in presidents[president][date] and type(w[1]) == int:
-          presidents[president][date][w] = wordData                             
+          presidents[president][date][w] = wordData
+          # print presidents[president][date][w]                     
 
     #/// Create collocation data for a given word \\\
     for word in presidents[president][date]: # presidents[president][date] looks like {"barack": {"February 12, 2009": {"word": {"count": 20}}}}
@@ -57,11 +60,10 @@ def dataBuilder(stateOfUnionSpeeches):
         # collocate[0].replace('mdash', ' ')
         collocates[collocate[0]] = collocate[1]
         # print collocates
-      print type(presidents[president][date][word])
-      print (presidents[president][date][word])
+      # print type(presidents[president][date][word])
+      # print (presidents[president][date][word])
 
-      if presidents[president][date][word]:
-        presidents[president][date][word]['collocates'] = collocates
+      # presidents[president][date][word]['collocates'] = collocates
 
 
       # // eventual method for removing single-occurrence collocates from the collocates list object \\\
