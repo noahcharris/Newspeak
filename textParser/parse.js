@@ -18,14 +18,18 @@ var getIndicesOf = function (searchStr, str, caseSensitive) {
     }
     return indices;
 };
+
 var getSpeechDate = function(title) {
 	var startOfDate = getIndicesOf(' - ', title, false)[0] + 3;
-	console.log('the index start Date is ' + startOfDate);
-	stateOfUnionSpeeches[counter].date = title.slice(startOfDate);
+	stateOfUnionSpeeches[counter].date = title.slice(startOfDate).slice(-4);
 
 	counter++;
-	if (counter < webAddress.length) {
+	if (counter < webAddress.length) { // webaddress.length gives the entire set of speeches
 		runHTTP(webAddress[counter], parseSpeech);
+	} else {
+		outputData = JSON.stringify(stateOfUnionSpeeches);
+		console.log(outputData);
+		return outputData;
 	}
 };
 
@@ -35,29 +39,22 @@ var getPresidentName = function(title) {
 	getSpeechDate(title);
 };
 
-
 var getSOTUmetaData = function(speechData) {
 	var startOfTitle = getIndicesOf('<meta name="title" content="', speechData, false);
 	var endOfTitle = getIndicesOf('" /><link rel="image_src" href=', speechData, false);
 	var title = speechData.slice(startOfTitle[0] + 28, endOfTitle[0]);
-
 	getPresidentName(title);
-	
 };
-
 
 var parseSpeech = function (speechData) {
 	var startOfSpeech = getIndicesOf('span class="displaytext">', speechData, false);
 	var endOfSpeech = getIndicesOf('</span><hr noshade="noshade" size="1"><span', speechData, false);
 	stateOfUnionSpeeches[counter] = {};
 	stateOfUnionSpeeches[counter].speech = speechData.slice( startOfSpeech[0] + 25 , endOfSpeech[0]).replace(/<p>/g, '  ');
-	
 	getSOTUmetaData(speechData);
 };
 
-
 var potusLinks = function(data) {
-
 		var links = getIndicesOf('class="doclist"><a href=', data, false);
 		for (var i = 0; i < links.length; i++) {
 			var temp = links[i] + 25;
@@ -82,7 +79,7 @@ var runHTTP = function(path, cb) {
 				cb(data);
 			});
 	}).on('error', function(e) {
-		console.log("Error: " + options.host + "\n" + e.message); 
+		// console.log("Error: " + options.host + "\n" + e.message);
 		console.log( e.stack );
 	});
 };
