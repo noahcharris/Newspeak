@@ -25,14 +25,12 @@ module.exports.words = function(request, response) {
 
 module.exports.collocation = function(request, response) {
   var queryArgs = url.parse(request.url, true).query;
-  console.log(queryArgs);
 
   client.query("SELECT * FROM " + queryArgs.president + " WHERE word = '" + queryArgs.word + "';", function(err, result) {
     if (err) {
       return console.error('error running query', err);
     }
     var row = result.rows[0];
-    console.log(row);
     if (row !== undefined) {
       response.json([row.word, row.collo1, row.collo2, row.collo3, row.collo4, row.collo5]); 
     } else {
@@ -43,14 +41,12 @@ module.exports.collocation = function(request, response) {
 
 module.exports.frequency = function(request, response) {
   var queryArgs = url.parse(request.url, true).query;
-  console.log(queryArgs);
 
   client.query("SELECT * FROM " + queryArgs.president + " WHERE word = '" + queryArgs.word + "';", function(err, result) {
     if(err) {
       return console.error('error running query', err);
     }
     var row = result.rows[0];
-    console.log(row);
     if (row === undefined) {
       response.json([]);
       response.end();
@@ -67,7 +63,7 @@ module.exports.frequency = function(request, response) {
 
 //the only security we have right now is through obfuscation..
 module.exports.receiveData = function(request, response) {
-  //console.log(request.body);
+  console.log('Receiving data..');
   var data = request.body;
   for (var president in data) {
     client.query("CREATE TABLE "+president+" ("
@@ -92,6 +88,7 @@ module.exports.receiveData = function(request, response) {
       +"year12   integer,"
       +"year13   integer"
       +");");
+    console.log('Create Table for '+president);
   }
   
 
@@ -209,7 +206,7 @@ for (var president in presidents) {
     yearString += 'year'+i;
   }
 
-  console.log('YEARSTRING', yearString);
+  //console.log('YEARSTRING', yearString);
   
 
   for (var i=0;i<presidents[president].length;i++) {
@@ -224,12 +221,14 @@ for (var president in presidents) {
       }
     }
 
-    console.log('VALUESTRING', valueString);
+    //console.log('VALUESTRING', valueString);
 
 
     client.query("INSERT INTO "+president+" "
       +"(word, collo1, collo2, collo3, collo4, collo5"+yearString+") "
       +"VALUES ("+valueString+");");
+
+    console.log('Inserting '+presidents[president][i][0]+' into '+president);
 
   }
     
