@@ -21,7 +21,7 @@ angular.module('newSpeakApp')
         'JohnQuincyAdams', 'AndrewJackson', 'MartinVanBuren', 'WilliamHHarrison', 'JohnTyler', 'JamesKPolk',
         'ZacharyTaylor', 'MillardFillmore', 'FranklinPierce', 'JamesBuchanan', 'AbrahamLincoln', 'AndrewJohnson',
         'UlyssesSGrant', 'RutherfordBHayes', 'JamesAGarfield', 'ChesterAArthur', 'GroverCleveland',
-        'BenjaminHarrison', 'WilliamMcKinley', 'TheodoreRoosevelt', 'WilliamHTaft',
+        'BenjaminHarrison', 'WilliamMcKinley', 'TheodoreRoosevelt', 'WilliamHowardTaft',
         'WoodrowWilson', 'WarrenGHarding', 'CalvinCoolidge', 'HerbertHoover', 'FranklinDRoosevelt',
         'HarrySTruman', 'DwightDEisenhower', 'JohnFKennedy', 'LyndonBJohnson', 'RichardNixon',
         'GeraldRFord', 'JimmyCarter', 'RonaldReagan','GeorgeBush', 'WilliamJClinton', 'GeorgeWBush', 'BarackObama'

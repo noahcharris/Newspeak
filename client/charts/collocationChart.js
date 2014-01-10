@@ -84,7 +84,7 @@ angular.module('newSpeakApp')
 			  	d._children = null;
 		  		update();
 		  	} else {
-		  		scope.onClick({tree: root, word: d.word});
+		  		scope.onClick({tree: root, word: d.word, id: d.id});
 		  	}
 		  }
 		};

@@ -42,13 +42,13 @@ angular.module('newSpeakApp')
   $scope.word = transferData.word;
   $scope.presidents = transferData.presidents;
   
-  $scope.getSotus = function(word, mainTree) {
+  $scope.getSotus = function(word, mainTree, id) {
     grabSOTUinfo.collocation(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)], word)
     .then(function(data) {
       return treeConvert.arrayToObject(data);
     })
     .then(function(miniTree) {
-      $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word);
+      $scope.colData = treeConvert.insertOnTree(miniTree, mainTree, word, id);
     });//end of grabSOTUinfo.collocation
 
     grabSOTUinfo.frequency(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)], word)
