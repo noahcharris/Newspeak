@@ -9,11 +9,12 @@ app = express();
 app.set('port', 8080);
   
 
-//my own middleware
 app.use(function(request, response, next) {
   console.log('received '+request.method+' request at '+request.url);
   next();
 });
+
+app.use(express.bodyParser());
 
 //this is nice for viewing errors!
 // process.on('uncaughtException', function (err) {
@@ -23,12 +24,13 @@ app.use(function(request, response, next) {
 
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 
-app.get('/', function(request, response) {  //this will be different once we're using nginx
+app.get('/', function(request, response) {
   response.redirect('/client/index.html');
 });
 
 app.get('/collocation', routes.collocation);
 app.get('/frequency', routes.frequency);
+app.get('/words', routes.words);
 app.post('/data', routes.receiveData);
 
 app.use(express.static(__dirname + '/..'));

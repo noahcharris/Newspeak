@@ -4,23 +4,29 @@
 	</form>
 
 	<ul ng-show="tempPresident === ''">
-	  <li ng-repeat='pres in presidents' ng-click="setPres(pres)">
-	    <a href"#/choices">{{ pres }}</a>
+	  <li ng-repeat='pres in presidents'>
+	    <a ng-click="setPres(pres)">{{ pres }}</a>
 	  </li>
 	</ul>
 	<ul ng-show="tempPresident !== ''">
-  	<li ng-repeat='pres in presidents | filter: tempPresident' ng-click="setPres(pres)">
-    	<a href"#/choices">{{ pres }}</a>
+  	<li ng-repeat='pres in presidents | filter: tempPresident'>
+    	<a ng-click="setPres(pres)">{{ pres }}</a>
   	</li>
 	</ul>
 </div>
 
 <div class='rightColumn main' id='postPick'>
 	<h1><strong>TOP WORDS FOR {{ president.toUpperCase() }}</strong></h1>
-	<h2 id="chooseWord">choose word</h2>
-	<ul>
-		<li ng-repeat='word in suggested' ng-click="sendData(word)">
-	  	<a>{{ word }}</a>
-		</li>
-	</ul>
+	<div ng-show="president !== 'James A. Garfield' && president !== 'William H. Harrison'">
+		<h2 id="chooseWord">choose word</h2>
+		<ul>
+			<li ng-repeat='word in suggested'>
+		  	<a ng-click="sendData(word)">{{ word }}</a>
+			</li>
+		</ul>
+	</div>
+
+	<div ng-show="president === 'James A. Garfield' || president === 'William H. Harrison'">
+		<h2 id="chooseWord">{{ president }} gave no State of the Union Speeches <br/> Select new president</h2>
+	</div>
 </div>

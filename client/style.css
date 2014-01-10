@@ -128,7 +128,7 @@
   top: -350px;
 }
 
-/**** choices.html (and colfrequency.html for h1) ***/
+/**** choices.html (and colfrequency.html for h1 & h2) ***/
 
 h1 {
   font-family: fantasy;
@@ -144,11 +144,27 @@ h1 {
   margin-top: 10px;
 }
 
+#total {
+  font-family: fantasy;
+  color: rgb(12,79,249);
+  font-size: 37px;
+  margin-top: 10px;
+}
+
 #postPick ul {
   font-family: fantasy;
   font-size: 25px;
   list-style-type: none;
   padding-left: 0px;
+  /*float: left;*/
+  width: 100%
+}
+
+#postPick ul li {
+  float: left;
+  width: 25%;
+  margin: 0;
+  padding: 0;
 }
 
 #postPick a:hover {
@@ -179,6 +195,10 @@ h1 {
 svg {
   border: 2px solid black;
   margin: 3px;
+}
+
+.barSVG{
+  background-color: #B6C1F2;
 }
 
 

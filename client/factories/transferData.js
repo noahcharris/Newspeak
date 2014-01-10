@@ -13,12 +13,24 @@ angular.module('newSpeakApp')
         'Ulysses S. Grant', 'Rutherford B. Hayes', 'James A. Garfield', 'Chester A. Arthur', 'Grover Cleveland',
         'Benjamin Harrison', 'William McKinley', 'Theodore Roosevelt', 'William H. Taft',
         'Woodrow Wilson', 'Warren G. Harding', 'Calvin Coolidge', 'Herbert Hoover', 'Franklin D. Roosevelt',
-        'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard M. Nixon',
+        'Harry S. Truman', 'Dwight D. Eisenhower', 'John F. Kennedy', 'Lyndon B. Johnson', 'Richard Nixon',
         'Gerald R. Ford', 'Jimmy Carter', 'Ronald Reagan','George H. W. Bush', 'Bill Clinton', 'George W. Bush', 'Barack Obama'
       ],
 
+      noSpacePresidents: ['GeorgeWashington', 'JohnAdams', 'ThomasJefferson', 'JamesMadison', 'JamesMonroe',
+        'JohnQuincyAdams', 'AndrewJackson', 'MartinVanBuren', 'WilliamHHarrison', 'JohnTyler', 'JamesKPolk',
+        'ZacharyTaylor', 'MillardFillmore', 'FranklinPierce', 'JamesBuchanan', 'AbrahamLincoln', 'AndrewJohnson',
+        'UlyssesSGrant', 'RutherfordBHayes', 'JamesAGarfield', 'ChesterAArthur', 'GroverCleveland',
+        'BenjaminHarrison', 'WilliamMcKinley', 'TheodoreRoosevelt', 'WilliamHTaft',
+        'WoodrowWilson', 'WarrenGHarding', 'CalvinCoolidge', 'HerbertHoover', 'FranklinDRoosevelt',
+        'HarrySTruman', 'DwightDEisenhower', 'JohnFKennedy', 'LyndonBJohnson', 'RichardNixon',
+        'GeraldRFord', 'JimmyCarter', 'RonaldReagan','GeorgeBush', 'WilliamJClinton', 'GeorgeWBush', 'BarackObama'
+      ],
+
+
+
     save: function(words, president, tempPresident) {
-      this.suggested = words;
+      this.suggested = words.slice(0,60);
       this.president = president;
       this.tempPresident = tempPresident;
     },

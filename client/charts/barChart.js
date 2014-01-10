@@ -20,7 +20,7 @@ angular.module('newSpeakApp')
         // calculate the height
         height = scope.data.length * (barHeight + barPadding),
         // Use the category20() scale function for multicolor support
-        color = d3.scale.category20(),
+        color = d3.scale.category10(),
         // our xScale
         xScale = d3.scale.linear()
         .domain([0, d3.max(data, function(d) {
@@ -61,6 +61,7 @@ angular.module('newSpeakApp')
      .text(function(d) {
       return d.word + " (total: " + d.total + ")";
      });
+
   };//end of .render
 
   return service;
