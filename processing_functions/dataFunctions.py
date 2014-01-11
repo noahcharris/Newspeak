@@ -10,7 +10,7 @@ import string
 
 stopSet = stopwords.words('english')
 stopSet = set(stopwords.words('english')) # words to ignore when looking for common collocates
-stopSet.update(['w', 'legislat', 'sed', 'ts', 'thats', 'l', 'th', 'e', 'iapplausei', 'weve', 'lets', 'rec', 'upon', 'statesthat', 'representativesb'])
+stopSet.update(['w', 'nvoy', 'milescenter', 'width500', 'width400', 'legislat', 'sed', 'ts', 'thats', 'l', 'th', 'e', 'iapplausei', 'weve', 'lets', 'rec', 'upon', 'statesthat', 'representativesb', 'ongress', 'institut'])
 stopSet.update(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
 
 

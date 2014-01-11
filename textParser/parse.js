@@ -3,7 +3,7 @@ var http = require("http");
 
 var webAddress = [];
 var stateOfUnionSpeeches = [];
-var counter = 0;
+var counter = 51;
 
 var getIndicesOf = function (searchStr, str, caseSensitive) {
     var startIndex = 0, searchStrLen = searchStr.length;
@@ -32,6 +32,10 @@ var getSpeechDate = function(title) {
 		return outputData;
 	}
 };
+
+// for jfk data: counter = 51, counter < 54, var speeches = stateOfUnionSpeeches.slice(51, 54), outputData = JSON.stringify(speeches)
+
+
 
 var getPresidentName = function(title) {
 	var endOfPresident = getIndicesOf(':', title, false);

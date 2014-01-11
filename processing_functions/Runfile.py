@@ -5,6 +5,7 @@ from dataGenerator import *
 from dataFunctions import *
 
 data = sys.stdin.read()
+print data
 
 def postData(data):
   headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
