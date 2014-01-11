@@ -4,8 +4,15 @@ angular.module('newSpeakApp')
   $scope.presidents = transferData.presidents;
   $scope.tempPresident = transferData.tempPresident;
   $scope.president = transferData.president;
-  $scope.suggested = transferData.suggested;
-  if ($scope.suggested === null && $location.$$url === '/choices') {
+  if (transferData.suggested === null) {
+    $scope.suggestedOne = null;
+  } else {
+    $scope.suggestedOne = transferData.suggested.slice(0,15);
+    $scope.suggestedTwo = transferData.suggested.slice(15,30);
+    $scope.suggestedThree = transferData.suggested.slice(30,45);
+    $scope.suggestedFour = transferData.suggested.slice(45);
+  }
+  if ($scope.suggestedOne === null && $location.$$url === '/choices') {
     $location.url('/');
   }
   $scope.setPres = function(pres) {
@@ -13,7 +20,14 @@ angular.module('newSpeakApp')
     grabSOTUinfo.getTopWords(transferData.noSpacePresidents[$scope.presidents.indexOf($scope.president)])
     .then(function(data) {
       transferData.save(data, $scope.president, $scope.tempPresident);
-      $scope.suggested = transferData.suggested;
+      if (transferData.suggested === null) {
+        $scope.suggestedOne = null;
+      } else {
+        $scope.suggestedOne = transferData.suggested.slice(0,15);
+        $scope.suggestedTwo = transferData.suggested.slice(15,30);
+        $scope.suggestedThree = transferData.suggested.slice(30,45);
+        $scope.suggestedFour = transferData.suggested.slice(45);
+      }
     }).then(function() {
       $location.url('choices');
     });

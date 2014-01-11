@@ -19,11 +19,26 @@
 	<h1><strong>TOP WORDS FOR {{ president.toUpperCase() }}</strong></h1>
 	<div ng-show="president !== 'James A. Garfield' && president !== 'William H. Harrison'">
 		<h2 id="chooseWord">choose word</h2>
-		<ul>
-			<li ng-repeat='word in suggested'>
+		<ol>
+			<li ng-repeat='word in suggestedOne'>
 		  	<a ng-click="sendData(word)">{{ word }}</a>
 			</li>
-		</ul>
+		</ol>
+		<ol start="16">
+			<li ng-repeat='word in suggestedTwo'>
+		  	<a ng-click="sendData(word)">{{ word }}</a>
+			</li>
+		</ol>
+		<ol start="31">
+			<li ng-repeat='word in suggestedThree'>
+		  	<a ng-click="sendData(word)">{{ word }}</a>
+			</li>
+		</ol>
+		<ol start="46">
+			<li ng-repeat='word in suggestedFour'>
+		  	<a ng-click="sendData(word)">{{ word }}</a>
+			</li>
+		</ol>
 	</div>
 
 	<div ng-show="president === 'James A. Garfield' || president === 'William H. Harrison'">
