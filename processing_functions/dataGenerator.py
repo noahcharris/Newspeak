@@ -1,29 +1,25 @@
-# cd textparser
-# node parse.js
-
 
 from dataFunctions import *
 
 
 def dataBuilder(stateOfUnionSpeeches):
-  presidents = {}
-  speeches = {}
+  presidents = {} # the data object to be send to runfile.py
+  speeches = {} # storage for the text-data from each speech
+  #/// build the initial data object \\\
   for SOTU in stateOfUnionSpeeches: # for a given speech object in the speeches array
     president = SOTU['president']
-    president = president.replace(" ", "") # 'Barack Obama'
+    #/// format president names to work with sql
+    president = president.replace(" ", "") # 'Barack Obama' 
     president = president.replace(".", "") # 'HarrySTruman'
     if president not in presidents: # check to see if 'Barack Obama' is a key of the presidents dictionary
       presidents[president] = {} # if not, add it
     tempDate = SOTU['date']
     presidents[president][tempDate] = []
-      # the date of the current SOTU will be the dictionary object for a given speech's output data
  
-   #///////////// PROCESSING INTO DATA \\\\\\\\\\\\\\
+   #///////////// PROCESSING TEXT INTO DATA \\\\\\\\\\\\\\
     text = textProcessor(SOTU['speech']) # processing to make it workable
-    # text = text.encode('ascii', 'ignore')
     speeches[tempDate] = text
     wordCountTuples = sorted(mostCommonWords(text).items(), key=lambda count: count[1], reverse=True) # get a list of tuples ('word', count), sorted by count order, for iteration
-
     presidents[president][tempDate] = wordCountTuples
 
   for pres in presidents:
@@ -37,17 +33,15 @@ def dataBuilder(stateOfUnionSpeeches):
 
     for year in dateArray:
       wordTuples = year[1]
-      #//// Create word data object for counts and add it to the speech data object \\\
-      for i in range(50):
+      #/// Create word data object for counts and add it to the speech data object \\\
+      for i in range(100): # the range selects the top n most common words in the speech
         if wordTuples[i][0] not in presidents[pres]['termList']:
           presidents[pres]['termList'].append(wordTuples[i][0])
-      # results in an object like {'word1': {'count': 20},    
 
 
     for year in dateArray:
       wordTuples = year[1]
       dataObj = {}
-
       tupleArrayIndex = []
       for c in wordTuples:
         tupleArrayIndex.append(c[0])
@@ -59,19 +53,13 @@ def dataBuilder(stateOfUnionSpeeches):
           idx = tupleArrayIndex.index(tempWord)
           wordData = {'count': wordTuples[idx][1]}
           dataObj[tempWord] = wordData
-        except ValueError:
+        except ValueError: #
           x = 0
-          # print pres + ' ' +  presidents[pres]['termList'][c] + ' not in speech'
 
       # /// Create collocation data for a given word \\\
       for word in dataObj: # presidents[president][date] looks like {"barack": {"February 12, 2009": {"word": {"count": 20}}}}
         collocates = {}
         concordList = speeches[year[0]].concordance(word)
-
-        # if len(concordList) == 0:
-          # print word
-          # print dataObj[word] # a list of lines
-          # print concordList
         collocateList = mostCommonWords(concordList).most_common(6) # generate an array of tuples, ('collocate', count)
         collocateList = [w for w in collocateList if w[0] != word]    
         for collocate in collocateList:
@@ -82,17 +70,6 @@ def dataBuilder(stateOfUnionSpeeches):
 
     del presidents[pres]['termList']
     
-
- # generate an array of tuples, ('collocate', count)
-
-
-      # presidents[president][date][word]['collocates'] = collocates
-
-
-      # // eventual method for removing single-occurrence collocates from the collocates list object \\\
-      # for collocate in collocateList:
-      #   if collocate[1] > 1:
-      #     collocates[collocate[0]] = collocate[1]
   return presidents
 
 

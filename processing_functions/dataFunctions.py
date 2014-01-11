@@ -27,7 +27,6 @@ def textProcessor(text):
 def mostCommonWords(concordanceList):
   finalCount = Counter()
   for line in concordanceList:
-
     words = [w for w in line.split() if w not in stopSet and len(w) > 2]
     finalCount.update(words)
   return finalCount
