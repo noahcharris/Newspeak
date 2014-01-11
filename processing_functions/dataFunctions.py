@@ -6,7 +6,6 @@ import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import string
-# from text.py import *
 
 stopSet = stopwords.words('english')
 stopSet = set(stopwords.words('english')) # words to ignore when looking for common collocates
