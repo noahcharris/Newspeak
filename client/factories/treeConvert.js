@@ -13,7 +13,7 @@ angular.module('newSpeakApp')
       return miniTree;
     },
 
-    insertOnTree: function(miniTree, mainTree, word) {
+    insertOnTree: function(miniTree, mainTree, word, id) {
       if (!mainTree) {
         miniTree.size = 6;
         return miniTree;
@@ -23,7 +23,7 @@ angular.module('newSpeakApp')
         for (var i = 0; i < mainTree.children.length; i++) {
           if (mainTree.children[i].children) {
             recurse(miniTree, mainTree.children[i], word);
-          } else if (mainTree.children[i].word === word) {
+          } else if (mainTree.children[i].word === word && mainTree.children[i].id === id) {
             mainTree.children[i].children = miniTree.children;
           }
         }

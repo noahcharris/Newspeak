@@ -151,20 +151,27 @@ h1 {
   margin-top: 10px;
 }
 
-#postPick ul {
-  font-family: fantasy;
-  font-size: 25px;
-  list-style-type: none;
-  padding-left: 0px;
-  /*float: left;*/
-  width: 100%
+#postPick div {
+  text-align: center:;
 }
 
-#postPick ul li {
-  float: left;
-  width: 25%;
+#postPick ol {
+  font-family: fantasy;
+  font-size: 25px;
+  padding-left: 30px;
+  display: inline-block;
+  width: 20%;
+}
+
+#postPick ol li {
   margin: 0;
   padding: 0;
+  text-align: left;
+}
+
+#postPick span {
+  /*position: relative;*/
+  /*left: -90px;*/
 }
 
 #postPick a:hover {
