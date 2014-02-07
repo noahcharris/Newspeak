@@ -101,6 +101,8 @@ presidentObject = data;
 
 var presidents = {};
 
+response.writeHead(200);
+
 
 for (var pres in presidentObject) {
   // debugger;
@@ -173,11 +175,25 @@ for (var pres in presidentObject) {
     });
     var tempResult = [];
     tempResult[0] = sorted[p].word;
-    tempResult[1] = collocationSort[0].name;
-    tempResult[2] = collocationSort[1].name;
-    tempResult[3] = collocationSort[2].name;
-    tempResult[4] = collocationSort[3].name;
-    tempResult[5] = collocationSort[4].name;
+    if (collocationSort[0]){
+      tempResult[1] = collocationSort[0].name;
+    }
+    if (collocationSort[1]){
+      tempResult[2] = collocationSort[1].name;
+    }
+    if (collocationSort[2]){
+      tempResult[3] = collocationSort[2].name;
+    }
+    if (collocationSort[3]){
+      tempResult[4] = collocationSort[3].name;
+    }
+    if (collocationSort[4]){
+      tempResult[5] = collocationSort[4].name;
+    }
+    // tempResult[2] = collocationSort[1].name;
+    // tempResult[3] = collocationSort[2].name;
+    // tempResult[4] = collocationSort[3].name;
+    // tempResult[5] = collocationSort[4].name;
     yearRemember.sort(function(a,b) {
       return a - b;
     });
