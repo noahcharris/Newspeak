@@ -1,5 +1,6 @@
  body {
   margin: 0px;
+  font-family: helvetica;
 }
 
 /**** VIEWS ***/
@@ -45,6 +46,7 @@
   position: relative;
   width: 53px;
   height: 40px;
+  font-style: helvetica;
 }
 
 
@@ -131,21 +133,18 @@
 /**** choices.html (and colfrequency.html for h1 & h2) ***/
 
 h1 {
-  font-family: fantasy;
   color: rgb(12,79,249);
   font-size: 46px;
   margin-bottom: 10px;
 }
 
 #chooseWord {
-  font-family: fantasy;
   color: rgb(12,79,249);
   font-size: 37px;
   margin-top: 10px;
 }
 
 #total {
-  font-family: fantasy;
   color: rgb(12,79,249);
   font-size: 37px;
   margin-top: 10px;
@@ -156,7 +155,6 @@ h1 {
 }
 
 #postPick ol {
-  font-family: fantasy;
   font-size: 25px;
   padding-left: 30px;
   display: inline-block;
@@ -176,6 +174,7 @@ h1 {
 
 #postPick a:hover {
   color: rgb(255, 26, 26);
+  cursor: pointer;
 }
 
 /**** president list styling ***/
@@ -187,6 +186,7 @@ h1 {
 
 .leftColumn li:hover {
   background: rgb(165, 184, 242);
+  cursor: pointer;
 }
 
 /**** overall border and placement of charts ***/
@@ -227,6 +227,14 @@ line.link {
   fill: none;
   stroke: #9ecae1;
   stroke-width: 1.5px;
+}
+
+/*** main.html ***/
+
+.title {
+  font-size: 1.5em;
+  padding: 40px;
+
 }
 
 /**** frequency chart: SEE nvd3.css ***/
